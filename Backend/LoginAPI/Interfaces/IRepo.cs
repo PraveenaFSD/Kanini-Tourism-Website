@@ -1,4 +1,4 @@
-﻿namespace DoctorAPI.Interfaces
+﻿namespace LoginAPI.Interfaces
 {
   
         public interface IRepo<K, T>

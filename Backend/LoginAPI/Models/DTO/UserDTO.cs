@@ -2,9 +2,12 @@
 
 namespace LoginAPI.Models.DTO
 {
-    public class UserDTO:User
+    public class UserDTO
     {
-        [Required(ErrorMessage = "Password string is required")]
-        public string? PasswordString { get; set; }
+        public int UserId { get; set; }
+        public string UserEmail { get; set; }
+        public string? Password { get; set; }
+        public string? Role { get; set; }
+        public string? Token { get; set; }
     }
 }

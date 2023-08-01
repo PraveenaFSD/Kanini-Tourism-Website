@@ -23,11 +23,13 @@ namespace LoginAPI
             builder.Services.AddSwaggerGen();
             builder.Services.AddDbContext<Context>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("conn")));
             builder.Services.AddScoped<ITokenGenerate, TokenService>();
+            builder.Services.AddScoped<IManageAgent, AgentService>();
+            builder.Services.AddScoped<IManageTraveler, TravelerService>();
+            builder.Services.AddScoped<IManageUser, UserService>();
 
-
-
-
-
+            builder.Services.AddScoped<IRepo<int, Agent>, AgentRepo>();
+            builder.Services.AddScoped<IRepo<int, Traveler>, TravelerRepo>();
+            builder.Services.AddScoped<IRepo<string, User>, UserRepo>();
 
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                             .AddJwtBearer(options =>

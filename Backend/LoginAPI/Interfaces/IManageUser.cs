@@ -1,6 +1,11 @@
-﻿namespace LoginAPI.Interfaces
+﻿using LoginAPI.Models.DTO;
+
+namespace LoginAPI.Interfaces
 {
-    public interface IManageService
+    public interface IManageUser
     {
+        public Task<UserDTO> LoginUser(UserDTO user);
+        public Task<UserDTO> UpdateUserPassword(UserDTO user);
+
     }
 }
