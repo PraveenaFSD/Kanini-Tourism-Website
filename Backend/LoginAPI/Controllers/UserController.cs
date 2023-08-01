@@ -74,5 +74,18 @@ namespace LoginAPI.Controllers
             return BadRequest(new Error(2, "Cannot Approve Agent "));
 
         }
+        [HttpPut("UpdatePassword")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> UpdatePasswprd(UserDTO userDTO)
+        {
+            var user = await _manageService.UpdateUserPassword(userDTO);
+            if (user != null)
+            {
+                return Accepted("UpdatePassword Details Succecssfully");
+            }
+            return BadRequest(new Error(2, "Cannot UpdatePassword  "));
+
+        }
     }
 }
