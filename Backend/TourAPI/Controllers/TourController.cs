@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using TourAPI.Interfaces;
 using TourAPI.Models;
+using TourAPI.Models.NewFolder;
 using TourAPI.Services;
 
 namespace TourAPI.Controllers
@@ -11,11 +12,14 @@ namespace TourAPI.Controllers
     public class TourController : ControllerBase
     {
         private readonly IManageTour _tourService;
+        private readonly IAdapterDTO _adapterDTO;
 
-        public TourController(IManageTour  tourService)
+        public TourController(IManageTour  tourService,IAdapterDTO adapterDTO)
         {
             _tourService = tourService;
-        
+            _adapterDTO=adapterDTO;
+
+
         }
         [HttpPost("AddTourPackage")]
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -49,6 +53,20 @@ namespace TourAPI.Controllers
 
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<ICollection<Tour>>> GetAllTourPackage()
+        {
+            var tourdetails = await _tourService.GetAllTourPackages();
+            if (tourdetails != null)
+            {
+                return Ok(tourdetails);
+            }
+            return NotFound(new Error(1, "There is notour details currently "));
+
+        }
+        [HttpGet("GetAllTourPackageAsDatas")]
+        [ProducesResponseType(typeof(ICollection<TourAddedDTO>), StatusCodes.Status200OK)]
+
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<ICollection<TourAddedDTO>>> GetAllTourPackageAsDatas()
         {
             var tourdetails = await _tourService.GetAllTourPackages();
             if (tourdetails != null)

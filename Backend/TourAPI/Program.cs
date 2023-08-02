@@ -6,6 +6,7 @@ using System.Text;
 using TourAPI.Interfaces;
 using TourAPI.Models;
 using TourAPI.Services;
+using TourAPI.Utilities;
 
 namespace TourAPI
 {
@@ -27,6 +28,8 @@ namespace TourAPI
             builder.Services.AddScoped<IRepo<int, Tour>, TourRepo>();
             builder.Services.AddScoped<IBaseRepo<int, Inclusions>, InclusionsRepo>();
             builder.Services.AddScoped<IManageTour, TourService>();
+            builder.Services.AddScoped<IAdapterDTO, AdapterService>();
+
 
             builder.Services.AddScoped<IBaseRepo<int, Exclusions>, ExclutsionsRepo>();
 

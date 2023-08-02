@@ -1,14 +1,17 @@
 ﻿using TourAPI.Interfaces;
 using TourAPI.Models;
+using TourAPI.Models.NewFolder;
 
 namespace TourAPI.Services
 {
     public class TourService : IManageTour
     {
         private readonly IRepo<int, Tour> _tourRepo;
+        private readonly IAdapterDTO _adapterDTO;
 
-        public TourService(IRepo<int, Tour> tourRepo) {
+        public TourService(IRepo<int, Tour> tourRepo, IAdapterDTO adapterDTO) {
             _tourRepo= tourRepo;
+            _adapterDTO= adapterDTO;
         }
         public async Task<Tour> AddTourpackage(Tour item)
         {
@@ -20,12 +23,15 @@ namespace TourAPI.Services
             return null;
         }
 
-        public async Task<ICollection<Tour>> GetAllTourPackages()
+        public async Task<ICollection<TourAddedDTO>> GetAllTourPackages()
         {
            ICollection<Tour> toures= await _tourRepo.GetAll();
-            if (toures != null)
+            ICollection<TourAddedDTO> toursDTO =await  _adapterDTO.TouIntoLoanDTO(toures);
+
+
+            if (toursDTO != null)
             {
-                return toures;
+                return toursDTO;
             }
             return null;
         }
