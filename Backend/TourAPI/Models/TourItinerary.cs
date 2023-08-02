@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace TourAPI.Models
 {
-    public class TourDestinations
+    public class TourItinerary
     {
         [Key]
         public int TourDestinationId { get; set; }
@@ -12,9 +12,11 @@ namespace TourAPI.Models
         [ForeignKey("TourId")]
         [JsonIgnore]
         public Tour? Tour { get; set; }
-        public int DestinationId{ get;}
-        [ForeignKey("DestinationId")]
-        public Destinations? Destinations { get; set; }
+        public int DayNo { get; set; }
+        public string? LocationName { get; set; }
+        public string? LocationDescription { get; set; }
+        public DateTime ArivalTime { get; set; }
+        public DateTime DepatureTime { get; set; }
         public string? DestinationImage { get; set; }
         public string? DestinationActivity { get; set; }
 

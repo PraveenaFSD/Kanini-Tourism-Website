@@ -9,12 +9,11 @@ namespace TourAPI.Models
 
         }
         public DbSet<Tour> Tour { get; set; }
-        public DbSet<Inclutions> Inclutions { get; set; }
-        public DbSet<Exclutions> Exclutions { get; set; }
-        public DbSet<TourInclutions> TourInclutions { get; set; }
-        public DbSet<TourExclutions> TourExclutions { get; set; }
-        public DbSet<Destinations> Destinations { get; set; }
-        public DbSet<TourDestinations> TourDestinations { get; set; }
+        public DbSet<Inclusions> Inclusions { get; set; }
+        public DbSet<Exclusions> Exclusions { get; set; }
+        public DbSet<TourInclusions> TourInclusions { get; set; }
+        public DbSet<TourExclusions> TourExclusions { get; set; }
+        public DbSet<TourItinerary> TourItinerary { get; set; }
         public DbSet<TourDates> TourDates { get; set; }
 
 

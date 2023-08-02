@@ -10,42 +10,29 @@ namespace TourAPI.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Destinations",
+                name: "Exclusions",
                 columns: table => new
                 {
-                    DestinationId = table.Column<int>(type: "int", nullable: false)
+                    ExclusionId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    DestinationName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Country = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    State = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    ExclusionDescription = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Destinations", x => x.DestinationId);
+                    table.PrimaryKey("PK_Exclusions", x => x.ExclusionId);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Exclutions",
+                name: "Inclusions",
                 columns: table => new
                 {
-                    ExclutionId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1")
+                    InclusionId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    InclusionDescription = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Exclutions", x => x.ExclutionId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Inclutions",
-                columns: table => new
-                {
-                    InclutionId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Inclutions", x => x.InclutionId);
+                    table.PrimaryKey("PK_Inclusions", x => x.InclusionId);
                 });
 
             migrationBuilder.CreateTable(
@@ -56,6 +43,7 @@ namespace TourAPI.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TourName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TourDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TourState = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TourType = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TourPrice = table.Column<float>(type: "real", nullable: false),
                     NoOfDays = table.Column<int>(type: "int", nullable: false),
@@ -91,79 +79,77 @@ namespace TourAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TourDestinations",
+                name: "TourExclusions",
+                columns: table => new
+                {
+                    TourExclusionId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TourId = table.Column<int>(type: "int", nullable: false),
+                    ExclusionId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TourExclusions", x => x.TourExclusionId);
+                    table.ForeignKey(
+                        name: "FK_TourExclusions_Exclusions_ExclusionId",
+                        column: x => x.ExclusionId,
+                        principalTable: "Exclusions",
+                        principalColumn: "ExclusionId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TourExclusions_Tour_TourId",
+                        column: x => x.TourId,
+                        principalTable: "Tour",
+                        principalColumn: "TourId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TourInclusions",
+                columns: table => new
+                {
+                    TourInclusionId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TourId = table.Column<int>(type: "int", nullable: false),
+                    InclusionId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TourInclusions", x => x.TourInclusionId);
+                    table.ForeignKey(
+                        name: "FK_TourInclusions_Inclusions_InclusionId",
+                        column: x => x.InclusionId,
+                        principalTable: "Inclusions",
+                        principalColumn: "InclusionId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TourInclusions_Tour_TourId",
+                        column: x => x.TourId,
+                        principalTable: "Tour",
+                        principalColumn: "TourId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TourItinerary",
                 columns: table => new
                 {
                     TourDestinationId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TourId = table.Column<int>(type: "int", nullable: false),
-                    DestinationId = table.Column<int>(type: "int", nullable: false),
+                    DayNo = table.Column<int>(type: "int", nullable: false),
+                    LocationName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LocationDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ArivalTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DepatureTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DestinationImage = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DestinationActivity = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TourDestinations", x => x.TourDestinationId);
+                    table.PrimaryKey("PK_TourItinerary", x => x.TourDestinationId);
                     table.ForeignKey(
-                        name: "FK_TourDestinations_Destinations_DestinationId",
-                        column: x => x.DestinationId,
-                        principalTable: "Destinations",
-                        principalColumn: "DestinationId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_TourDestinations_Tour_TourId",
-                        column: x => x.TourId,
-                        principalTable: "Tour",
-                        principalColumn: "TourId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "TourExclutions",
-                columns: table => new
-                {
-                    TourExclutionId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    TourId = table.Column<int>(type: "int", nullable: false),
-                    ExclutionId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TourExclutions", x => x.TourExclutionId);
-                    table.ForeignKey(
-                        name: "FK_TourExclutions_Exclutions_ExclutionId",
-                        column: x => x.ExclutionId,
-                        principalTable: "Exclutions",
-                        principalColumn: "ExclutionId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_TourExclutions_Tour_TourId",
-                        column: x => x.TourId,
-                        principalTable: "Tour",
-                        principalColumn: "TourId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "TourInclutions",
-                columns: table => new
-                {
-                    TourInclutionId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    TourId = table.Column<int>(type: "int", nullable: false),
-                    InclutionId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TourInclutions", x => x.TourInclutionId);
-                    table.ForeignKey(
-                        name: "FK_TourInclutions_Inclutions_InclutionId",
-                        column: x => x.InclutionId,
-                        principalTable: "Inclutions",
-                        principalColumn: "InclutionId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_TourInclutions_Tour_TourId",
+                        name: "FK_TourItinerary_Tour_TourId",
                         column: x => x.TourId,
                         principalTable: "Tour",
                         principalColumn: "TourId",
@@ -176,33 +162,28 @@ namespace TourAPI.Migrations
                 column: "TourId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TourDestinations_DestinationId",
-                table: "TourDestinations",
-                column: "DestinationId");
+                name: "IX_TourExclusions_ExclusionId",
+                table: "TourExclusions",
+                column: "ExclusionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TourDestinations_TourId",
-                table: "TourDestinations",
+                name: "IX_TourExclusions_TourId",
+                table: "TourExclusions",
                 column: "TourId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TourExclutions_ExclutionId",
-                table: "TourExclutions",
-                column: "ExclutionId");
+                name: "IX_TourInclusions_InclusionId",
+                table: "TourInclusions",
+                column: "InclusionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TourExclutions_TourId",
-                table: "TourExclutions",
+                name: "IX_TourInclusions_TourId",
+                table: "TourInclusions",
                 column: "TourId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TourInclutions_InclutionId",
-                table: "TourInclutions",
-                column: "InclutionId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TourInclutions_TourId",
-                table: "TourInclutions",
+                name: "IX_TourItinerary_TourId",
+                table: "TourItinerary",
                 column: "TourId");
         }
 
@@ -212,22 +193,19 @@ namespace TourAPI.Migrations
                 name: "TourDates");
 
             migrationBuilder.DropTable(
-                name: "TourDestinations");
+                name: "TourExclusions");
 
             migrationBuilder.DropTable(
-                name: "TourExclutions");
+                name: "TourInclusions");
 
             migrationBuilder.DropTable(
-                name: "TourInclutions");
+                name: "TourItinerary");
 
             migrationBuilder.DropTable(
-                name: "Destinations");
+                name: "Exclusions");
 
             migrationBuilder.DropTable(
-                name: "Exclutions");
-
-            migrationBuilder.DropTable(
-                name: "Inclutions");
+                name: "Inclusions");
 
             migrationBuilder.DropTable(
                 name: "Tour");

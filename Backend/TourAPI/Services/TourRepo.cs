@@ -1,33 +1,142 @@
-﻿using TourAPI.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using TourAPI.Interfaces;
 using TourAPI.Models;
 
 namespace TourAPI.Services
 {
     public class TourRepo : IRepo<int, Tour>
     {
-        public Task<Tour?> Add(Tour item)
+        private readonly Context _context;
+        private readonly ILogger<TourRepo> _logger;
+
+        public TourRepo(Context context, ILogger<TourRepo> logger)
         {
-            throw new NotImplementedException();
+            _context = context;
+            _logger = logger;
+        }
+        public async Task<Tour?> Add(Tour item)
+        {
+            var transaction = _context.Database.BeginTransaction();
+
+            try
+            {
+                _context.Tour.Add(item);
+                await _context.SaveChangesAsync();
+                transaction.Commit();
+
+                return item;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                transaction.Rollback();
+
+
+
+            }
+            return null;
         }
 
-        public Task<Tour?> Delete(int key)
+        public async  Task<Tour?> Delete(int key)
         {
-            throw new NotImplementedException();
+            var transaction = _context.Database.BeginTransaction();
+
+            Tour tour = await Get(key);
+            if (tour != null)
+            {
+                try
+                {
+                    _context.Remove(tour);
+                    await _context.SaveChangesAsync();
+                    transaction.Commit();
+
+
+                    return tour;
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex.Message);
+                    transaction.Rollback();
+
+
+
+                }
+            }
+
+            return null;
         }
 
-        public Task<Tour?> Get(int key)
+        public async  Task<Tour?> Get(int key)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var tour = await _context.Tour.Include(c => c.TourExclusions).Include(c => c.TourInclusions)
+                   .Include(c => c.TourItinerary).FirstOrDefaultAsync(u => u.TourId == key);
+                return tour;
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+
+            }
+            return null;
         }
 
-        public Task<ICollection<Tour>?> GetAll()
+        public async  Task<ICollection<Tour>?> GetAll()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var tour = await _context.Tour.Include(c => c.TourExclusions).Include(c => c.TourInclusions)
+                    .Include(c => c.TourItinerary).ToListAsync();
+                return tour;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+
+            }
+            return null;
         }
 
-        public Task<Tour?> Update(Tour item)
+        public async Task<Tour?> Update(Tour item)
         {
-            throw new NotImplementedException();
+            var transaction = _context.Database.BeginTransaction();
+
+            try
+            {
+                Tour? tour = await Get(item.TourId);
+                if (tour != null)
+                {
+                    tour.TourName=item.TourName;
+                    tour.TourDescription=item.TourDescription;
+                    tour.TourType=item.TourType;
+                    tour.TourPrice=item.TourPrice;
+                    tour.NoOfDays=item.NoOfDays;
+                    tour.NoOfNights=item.NoOfNights;
+                    tour.MaxCapacity=item.MaxCapacity;
+                    tour.MinCapacity=item.MinCapacity;
+                    tour.TourImages=item.TourImages;
+                    tour.TourExclusions=item.TourExclusions;
+                    tour.TourInclusions=item.TourInclusions;
+                    tour.TourItinerary = item.TourItinerary;
+
+                    await _context.SaveChangesAsync();
+                    transaction.Commit();
+
+                }
+                return tour;
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                transaction.Rollback();
+
+                return null;
+
+            }
         }
     }
 }

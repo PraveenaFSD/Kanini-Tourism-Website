@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "CbGwNY9gCYbu22SnVqVZBdB2ogrYiWd50qopoIYZWZmWNULj+85DsCJTJJ8S5oGE7W4lkDf2gs1kPjT10cMXhA==",
+  "dgSpecHash": "TfUuOLM23fP1wTIuFP5pCL9LhxeWs1KcR6Qzxi0BO0iBWsO9iqRIvINkhRlxVqINsrFC4TFvc3f5TYFcXkOhIg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Praveena Murugan\\Desktop\\Tour\\Backend\\LoginAPI\\LoginAPI.csproj",
+  "projectFilePath": "D:\\newwwwwwww\\Tour\\Backend\\LoginAPI\\LoginAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Praveena Murugan\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Praveena Murugan\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.19\\microsoft.aspnetcore.authentication.jwtbearer.6.0.19.nupkg.sha512",

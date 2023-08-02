@@ -1,7 +1,6 @@
 ﻿using LoginAPI.Interfaces;
 using LoginAPI.Models;
-using LoginAPI.Interfaces;
-using LoginAPI.Models;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace LoginAPI.Services

@@ -98,7 +98,7 @@ namespace LoginAPI.Services
                 agent.AgentMobileNo = item.AgentMobileNo;
                 agent.AgentName = item.AgentName;
                 agent.AgentAddress = item.AgentAddress;
-                agent.State = item.State;
+                agent.AgentState = item.AgentState;
                 agent.Country = item.Country;
                 agent.LicenseNumber = item.LicenseNumber;
                 agent.Status = item.Status;

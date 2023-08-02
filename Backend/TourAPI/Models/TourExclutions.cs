@@ -4,16 +4,17 @@ using System.Text.Json.Serialization;
 
 namespace TourAPI.Models
 {
-    public class TourExclutions
+    public class TourExclusions
     {
         [Key]
-        public int TourExclutionId { get; set; }
+        public int TourExclusionId { get; set; }
         public int TourId { get; set; }
         [ForeignKey("TourId")]
         [JsonIgnore]
         public Tour? Tour { get; set; }
-        public int ExclutionId { get; set; }
-        [ForeignKey("ExclutionId")]
-        public Exclutions? Exclutions { get; set; }
+        public int ExclusionId { get; set; }
+        [ForeignKey("ExclusionId")]
+        [JsonIgnore]
+        public Exclusions? Exclusions { get; set; }
     }
 }

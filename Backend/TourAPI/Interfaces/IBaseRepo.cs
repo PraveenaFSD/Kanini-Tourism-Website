@@ -1,6 +1,8 @@
 ﻿namespace TourAPI.Interfaces
 {
-    public class IBaseRepo
+    public interface IBaseRepo<K,T>
     {
+        public Task<T?> Get(K key);
+        public Task<ICollection<T>?> GetAll();
     }
 }

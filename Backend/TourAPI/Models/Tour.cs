@@ -8,6 +8,7 @@ namespace TourAPI.Models
             public int TourId { get; set; }
         public string? TourName { get; set;}
         public string? TourDescription { get; set;}
+        public string? TourState { get; set; }  
         public string? TourType { get; set; }
         public float TourPrice { get; set; }
         public int NoOfDays { get; set; }
@@ -16,10 +17,10 @@ namespace TourAPI.Models
         public int MinCapacity { get; set; }
         public string? TourImages { get; set; }
         public ICollection<TourDates>? TourDates  { get; set; }
-        public ICollection<TourInclutions>? TourInclutions { get; set; }
+        public ICollection<TourInclusions>? TourInclusions { get; set; }
 
-        public ICollection<TourExclutions>? TourExclutions { get; set; }
-        public ICollection<TourDestinations>? TourDestinations { get; set; }
+        public ICollection<TourExclusions>? TourExclusions { get; set; }
+      public ICollection<TourItinerary>? TourItinerary { get; set; }
 
 
 

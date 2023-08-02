@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "cH7bofgZwyWYHFdmmrGRdvdvd0EUD8n7OcbOSgYSXhsAiyFKp6Od9Q3v2qnEH0cm5iEchhUiHCBuUaLMGQeRQA==",
+  "dgSpecHash": "kVivRmSgzvzobnI4svYLSMtMe17lxI8cwJOVS8c3PElYdXZPyMvqb2TV3NSONATjFqU0ipiXB7XNS1Q+M/yf7w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Praveena Murugan\\Desktop\\Tour\\Backend\\TourAPI\\TourAPI.csproj",
+  "projectFilePath": "D:\\newwwwwwww\\Tour\\Backend\\TourAPI\\TourAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Praveena Murugan\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Praveena Murugan\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.19\\microsoft.aspnetcore.authentication.jwtbearer.6.0.19.nupkg.sha512",
