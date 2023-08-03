@@ -41,16 +41,14 @@ namespace TourAPI.Migrations
                 {
                     TourId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TourName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TourDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TourState = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TourType = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TourPrice = table.Column<float>(type: "real", nullable: false),
                     NoOfDays = table.Column<int>(type: "int", nullable: false),
                     NoOfNights = table.Column<int>(type: "int", nullable: false),
                     MaxCapacity = table.Column<int>(type: "int", nullable: false),
                     MinCapacity = table.Column<int>(type: "int", nullable: false),
-                    TourImages = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    TourImage = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {

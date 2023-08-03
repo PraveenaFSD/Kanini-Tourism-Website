@@ -35,7 +35,7 @@ function Menu() {
                   <a class="nav-link" href="#">About</a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link" href="#">Contact</a>
+                  <Link class="nav-link" to="/tourregistartion">Contact</Link>
               </li>
               <li class="nav-item">
                   <Link class="nav-link btn b text-black" type="button" to="/login" data-toggle="modal" data-target="#myModal">Sign In</Link>                  

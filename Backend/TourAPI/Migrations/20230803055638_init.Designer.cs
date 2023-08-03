@@ -12,7 +12,7 @@ using TourAPI.Models;
 namespace TourAPI.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20230802065623_init")]
+    [Migration("20230803055638_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -79,19 +79,13 @@ namespace TourAPI.Migrations
                     b.Property<string>("TourDescription")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TourImages")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TourName")
+                    b.Property<string>("TourImage")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<float>("TourPrice")
                         .HasColumnType("real");
 
                     b.Property<string>("TourState")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TourType")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("TourId");

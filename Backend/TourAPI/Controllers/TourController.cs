@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TourAPI.Interfaces;
 using TourAPI.Models;
@@ -9,15 +10,19 @@ namespace TourAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("MyCORS")]
+
     public class TourController : ControllerBase
     {
         private readonly IManageTour _tourService;
         private readonly IAdapterDTO _adapterDTO;
+        private readonly IDropDownRepo _dropDownRepo;
 
-        public TourController(IManageTour  tourService,IAdapterDTO adapterDTO)
+        public TourController(IManageTour  tourService,IAdapterDTO adapterDTO, IDropDownRepo dropDownRepo)
         {
             _tourService = tourService;
             _adapterDTO=adapterDTO;
+            _dropDownRepo=dropDownRepo;
 
 
         }
@@ -73,7 +78,35 @@ namespace TourAPI.Controllers
             {
                 return Ok(tourdetails);
             }
-            return NotFound(new Error(1, "There is notour details currently "));
+            return NotFound(new Error(1, "There is no tour details currently "));
+
+        }
+        [HttpGet("GetAllExclusion")]
+        [ProducesResponseType(typeof(ICollection<Exclusions>), StatusCodes.Status200OK)]
+
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<ICollection<Exclusions>>> GetAllExclusion()
+        {
+            var exclusions = await _dropDownRepo.GetAllExclusions();
+            if (exclusions != null)
+            {
+                return Ok(exclusions);
+            }
+            return NotFound(new Error(1, "There is no Exclusions details currently "));
+
+        }
+        [HttpGet("GetAllInclusion")]
+        [ProducesResponseType(typeof(ICollection<Exclusions>), StatusCodes.Status200OK)]
+
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<ICollection<Exclusions>>> GetAllInclusion()
+        {
+            var inclusions = await _dropDownRepo.GetAllInclusions();
+            if (inclusions != null)
+            {
+                return Ok(inclusions);
+            }
+            return NotFound(new Error(1, "There is no Inclusions details currently "));
 
         }
     }

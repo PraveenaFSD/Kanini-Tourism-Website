@@ -8,7 +8,8 @@ namespace TourAPI.Interfaces
         public Task<Tour> AddTourpackage(Tour item);
         public Task<bool> UpdateTourpackage(Tour item);
 
-        public Task<ICollection<TourAddedDTO>> GetAllTourPackages();
+        public Task<ICollection<Tour>> GetAllTourPackages();
+
 
     }
 }

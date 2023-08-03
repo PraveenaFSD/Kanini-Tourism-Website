@@ -6,6 +6,7 @@ using System.Text;
 using TourAPI.Interfaces;
 using TourAPI.Models;
 using TourAPI.Services;
+using TourAPI.Services.Static;
 using TourAPI.Utilities;
 
 namespace TourAPI
@@ -22,6 +23,13 @@ namespace TourAPI
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddCors(opts =>
+            {
+                opts.AddPolicy("MyCORS", options =>
+                {
+                    options.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
+                });
+            });
             builder.Services.AddDbContext<Context>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("conn")));
           
 
@@ -29,6 +37,8 @@ namespace TourAPI
             builder.Services.AddScoped<IBaseRepo<int, Inclusions>, InclusionsRepo>();
             builder.Services.AddScoped<IManageTour, TourService>();
             builder.Services.AddScoped<IAdapterDTO, AdapterService>();
+            builder.Services.AddScoped<IDropDownRepo, DropDownServices>();
+
 
 
             builder.Services.AddScoped<IBaseRepo<int, Exclusions>, ExclutsionsRepo>();
@@ -81,8 +91,10 @@ namespace TourAPI
                 app.UseSwaggerUI();
             }
 
-            app.UseAuthorization();
+            app.UseAuthentication();
+            app.UseCors("MyCORS");
 
+            app.UseAuthorization();
 
             app.MapControllers();
 

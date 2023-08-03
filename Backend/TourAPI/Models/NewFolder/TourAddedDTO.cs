@@ -11,7 +11,7 @@
         public int NoOfNights { get; set; }
         public int MaxCapacity { get; set; }
         public int MinCapacity { get; set; }
-        public string? TourImages { get; set; }
+        public string? TourImage { get; set; }
         public ICollection<TourDates>? TourDates { get; set; }
         public ICollection<string>? TourInclusions { get; set; }
 

@@ -23,15 +23,14 @@ namespace TourAPI.Services
             return null;
         }
 
-        public async Task<ICollection<TourAddedDTO>> GetAllTourPackages()
+        public async Task<ICollection<Tour>> GetAllTourPackages()
         {
            ICollection<Tour> toures= await _tourRepo.GetAll();
-            ICollection<TourAddedDTO> toursDTO =await  _adapterDTO.TouIntoLoanDTO(toures);
 
 
-            if (toursDTO != null)
+            if (toures != null)
             {
-                return toursDTO;
+                return toures;
             }
             return null;
         }

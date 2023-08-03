@@ -109,15 +109,12 @@ namespace TourAPI.Services
                 Tour? tour = await Get(item.TourId);
                 if (tour != null)
                 {
-                    tour.TourName=item.TourName;
                     tour.TourDescription=item.TourDescription;
-                    tour.TourType=item.TourType;
                     tour.TourPrice=item.TourPrice;
                     tour.NoOfDays=item.NoOfDays;
                     tour.NoOfNights=item.NoOfNights;
                     tour.MaxCapacity=item.MaxCapacity;
                     tour.MinCapacity=item.MinCapacity;
-                    tour.TourImages=item.TourImages;
                     tour.TourExclusions=item.TourExclusions;
                     tour.TourInclusions=item.TourInclusions;
                     tour.TourItinerary = item.TourItinerary;

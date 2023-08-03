@@ -21,6 +21,13 @@ namespace LoginAPI
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddCors(opts =>
+            {
+                opts.AddPolicy("MyCORS", options =>
+                {
+                    options.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
+                });
+            });
             builder.Services.AddDbContext<Context>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("conn")));
             builder.Services.AddScoped<ITokenGenerate, TokenService>();
             builder.Services.AddScoped<IManageAgent, AgentService>();
@@ -77,8 +84,10 @@ namespace LoginAPI
                 app.UseSwaggerUI();
             }
 
-            app.UseAuthorization();
+            app.UseAuthentication();
+            app.UseCors("MyCORS");
 
+            app.UseAuthorization();
 
             app.MapControllers();
 

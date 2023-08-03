@@ -77,19 +77,13 @@ namespace TourAPI.Migrations
                     b.Property<string>("TourDescription")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TourImages")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TourName")
+                    b.Property<string>("TourImage")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<float>("TourPrice")
                         .HasColumnType("real");
 
                     b.Property<string>("TourState")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TourType")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("TourId");

@@ -1,6 +1,7 @@
 ﻿using LoginAPI.Interfaces;
 using LoginAPI.Models;
 using LoginAPI.Models.DTO;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,6 +9,8 @@ namespace LoginAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("MyCORS")]
+
     public class UserController : ControllerBase
     {
         private readonly IManageAgent _agentService;

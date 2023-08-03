@@ -24,7 +24,7 @@ namespace LoginAPI.Models
         public string? AgentAddress { get; set; }
         [Required(ErrorMessage = "State is required.")]
         [MaxLength(50, ErrorMessage = "State cannot exceed 50 characters.")]
-        public string? AgentState { get; set; }
+        public string? State { get; set; }
         [Required(ErrorMessage = "Country is required.")]
         [MaxLength(100, ErrorMessage = "Country cannot exceed 100 characters.")]
         public string? Country { get; set; }

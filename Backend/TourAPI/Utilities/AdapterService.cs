@@ -24,15 +24,14 @@ namespace TourAPI.Utilities
             foreach (var item in tours)
             {
                 tour = new TourAddedDTO();
-                tour.TourName = item.TourName;
+               
                 tour.TourDescription = item.TourDescription;
-                tour.TourType = item.TourType;
                 tour.TourPrice = item.TourPrice;
                 tour.NoOfDays = item.NoOfDays;
                 tour.NoOfNights = item.NoOfNights;
                 tour.MaxCapacity = item.MaxCapacity;
                 tour.MinCapacity = item.MinCapacity;
-                tour.TourImages = item.TourImages;
+                tour.TourImage = item.TourImage;
                 tour.TourItinerary = item.TourItinerary;
                 List<string> te = await exclustiondatas(item.TourExclusions);
                 List<string> ti = await inclustiondatas(item.TourInclusions);
