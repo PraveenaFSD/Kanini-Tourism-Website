@@ -1,6 +1,7 @@
 import React from "react";
 import { Modal, Button } from "react-bootstrap";
-
+import log from '../Images/question.jpg'
+import '../Compenents/DeleteAlert.css'
 function DeleteAlert(props) {
   const handleClose = () => {
     // Call the onClose prop from the parent to close the modal
@@ -48,7 +49,10 @@ function DeleteAlert(props) {
           <Modal.Title>Confirm Delete</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Are you sure you want to delete this agent?
+        <img src={log} alt="Agent"  style={{widht:"10px"}} className="del-img"/>
+        <br/>
+
+          <p className="model-text">Are you sure you want to delete this agent?</p>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>

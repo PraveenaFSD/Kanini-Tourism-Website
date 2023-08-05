@@ -8,54 +8,52 @@ import { Link, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 
 function Login() {
-const navigate = useNavigate();
-const [user, setUser] = useState({
-  userEmail: "",
-  password: "",
-});
+  const navigate = useNavigate();
+  const [user, setUser] = useState({
+    userEmail: "",
+    password: "",
+  });
 
-var login = () => {
-  console.log(user);
-  fetch("http://localhost:5129/api/User/LoginUser", {
-    method: "POST",
-    headers: {
-      accept: "text/plain",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ ...user, user: {} }),
-  })
-    .then(async (res) => {
-      var myDataa = await res.json();
-      localStorage.setItem("token", myDataa.token);
-      localStorage.setItem("role", myDataa.role);
-      // localStorage.setItem("userId", myDataa.userId)
-      if (res.status == 200) {
-        if (myDataa.role == "traveler") {
-          navigate("/chooseRegister");
-        }
-        else{
-          alert("login was unsuccessfull");
-
-        }
-        // else if(myDataa.role=="patient")
-        // {
-        //   alert("login was successfull")
-        //   navigate("/patient");
-
-        // }
-        // else if(myDataa.role=="admin"){
-        //   navigate("/admin");
-        //   alert("login was successfull")
-
-        // }
-      } else {
-        alert("login was unsuccessfull");
-      }
+  var login = () => {
+    console.log(user);
+    fetch("http://localhost:5129/api/User/LoginUser", {
+      method: "POST",
+      headers: {
+        accept: "text/plain",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ ...user, user: {} }),
     })
-    .catch((err) => {
-      console.log(err);
-    });
-};
+      .then(async (res) => {
+        var myDataa = await res.json();
+        localStorage.setItem("token", myDataa.token);
+        localStorage.setItem("role", myDataa.role);
+        // localStorage.setItem("userId", myDataa.userId)
+        if (res.status == 200) {
+          if (myDataa.role == "traveler") {
+            navigate("/chooseRegister");
+          } else {
+            alert("login was unsuccessfull");
+          }
+          // else if(myDataa.role=="patient")
+          // {
+          //   alert("login was successfull")
+          //   navigate("/patient");
+
+          // }
+          // else if(myDataa.role=="admin"){
+          //   navigate("/admin");
+          //   alert("login was successfull")
+
+          // }
+        } else {
+          alert("login was unsuccessfull");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <div class="main">
@@ -118,7 +116,8 @@ var login = () => {
                           />
                         </div>
                         <p>
-                          not registered user? <Link to="/chooseRegister">sign up</Link>
+                          not registered user?{" "}
+                          <Link to="/chooseRegister">sign up</Link>
                         </p>
                         <button
                           type="submit"

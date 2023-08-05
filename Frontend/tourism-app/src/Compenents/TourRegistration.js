@@ -9,6 +9,62 @@ import React, { useState, useEffect } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 
 function TourRegistration() {
+ 
+  const [tourData, setTourData] = useState({
+    tourDescription: "11",
+    tourState: "df",
+    tourPrice: 21,
+    noOfDays: 2,
+    noOfNights: 2,
+    maxCapacity: 20,
+    minCapacity: 10,
+    tourImage: "rfe",
+    tourDates: [
+      {
+       
+        startDate: "erf",
+        endDate: "ef"
+      }
+    ],
+    tourInclusions: [
+      {
+    
+        inclusionId: 1
+      }
+    ],
+    tourExclusions: [
+      {
+      
+        exclusionId: 1
+      }
+    ],
+    tourItinerary: [
+      {
+        dayNo: 1,
+        locationName: "fes",
+        locationDescription: "sfd",
+        arivalTime: "",
+        depatureTime: "",
+        destinationImage: "3d",
+        destinationActivity: "dss"
+      }
+    ]
+  });
+  const [ex, setEx] = useState([{exclusionId:0}]);
+
+  const handleExChange = (index, field, value) => {
+  
+    setTourData((prevTourData) => ({
+      ...prevTourData,
+      tourExclusions: value,
+    }));
+  
+   
+  };
+  useEffect(() => {
+    console.log("Updated tourExclusions:", tourData.tourExclusions);
+  }, [tourData.tourExclusions]);
+  
   const [inclusions, setInclusions] = useState([]);
   const [exclusions, setExclusions] = useState([]);
   useEffect(() => {}, [inclusions, exclusions]);
@@ -16,6 +72,7 @@ function TourRegistration() {
     getTypes();
     getCategories();
     // localStorage.clear();
+    
   }, []);
   var getTypes = () => {
     fetch("http://localhost:5128/api/Tour/GetAllInclusion  ", {
@@ -62,6 +119,7 @@ function TourRegistration() {
   };
 
   const navigate = useNavigate();
+
   const [dates, setDates] = useState([{ startDate: "1", endDate: "1" }]);
 
   const handleAddDate = () => {
@@ -69,21 +127,41 @@ function TourRegistration() {
   };
 
   const handleDateChange = (index, field, value) => {
+    console.log(field)
     const updatedDates = [...dates];
     updatedDates[index][field] = value;
     setDates(updatedDates);
-    console.log(dates);
+    setTourData((prevTourData) => ({
+      ...prevTourData,
+      tourDates: updatedDates,
+      
+    }));
+    console.log(dates)
+    console.log("newew")
+    console.log(...tourData.tourDates )
+
   };
   const handleDeleteDate = (index) => {
     const updatedDates = [...dates];
     updatedDates.splice(index, 1);
     setDates(updatedDates);
+    setTourData((prevTourData) => ({
+      ...prevTourData,
+      tourDates: updatedDates,
+      
+    }));
   };
     
   const handleDeleteEntry = (index) => {
     const updatedAdds = [...itineraryData];
     updatedAdds.splice(index, 1);
     setItineraryData(updatedAdds);
+    setTourData((prevTourData) => ({
+      ...prevTourData,
+      tourItinerary: updatedAdds,
+      
+    }));
+    
     // setItineraryData((prevItineraryData) => {
     //   const updatedItineraryData = [...prevItineraryData];
     //   updatedItineraryData.splice(index, 1);
@@ -117,62 +195,93 @@ function TourRegistration() {
     console.log(itineraryData);
 
   };
+  
+  var login = () => {
+    console.log(tourData);
+    fetch("http://localhost:5128/api/Tour/AddTourPackage", {
+      method: "POST",
+      headers: {
+        "accept": "text/plain",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ ...tourData, tourData: {} }),
+    })
+    .then(async (res) => {
+      
+      if (res.status == 201) {
+       
+          alert("register was successfull");
+          // $('#modalRelatedContent').modal('show');
+
+        }
+        else{
+          alert("register was unsuccessfull");
+
+        }
+        // else if(myDataa.role=="patient")
+        // {
+        //   alert("login was successfull")
+        //   navigate("/patient");
+
+        // }
+        // else if(myDataa.role=="admin"){
+        //   navigate("/admin");
+        //   alert("login was successfull")
+
+        // }
+      
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
   const handleAddChange = (index, field, value) => {
     const updatedAdds = [...itineraryData];
     updatedAdds[index][field] = value;
     setItineraryData(updatedAdds);
     console.log(itineraryData);
-  };
+    setTourData((prevTourData) => ({
+      ...prevTourData,
+      tourItinerary: updatedAdds,
+      
+    }));
+    console.log("newew")
+    console.log(...tourData.tourItinerary )  };
 
-  const [traveler, setTraveler] = useState({
-    user: {
-      userEmail: "",
-    },
+    var applyInclusions=(event)=>
+    {
+        var branchObj=JSON.parse(event.target.value);
+        console.log("Ids");
+        console.log(branchObj.inclusionId);
 
-    userName: "",
-    mobileNumber: "",
-    passwordString: "",
-  });
-  var travelerRegister = () => {
-    console.log(traveler);
-    fetch("http://localhost:5129/api/User/AddTraveler", {
-      method: "POST",
-      headers: {
-        accept: "text/plain",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ ...traveler, traveler: {} }),
-    })
-      .then(async (res) => {
-        var myDataa = await res.json();
-        localStorage.setItem("token", myDataa.token);
-        localStorage.setItem("role", myDataa.role);
-        // localStorage.setItem("userId", myDataa.userId)
-        if (res.status == 201) {
-          if (myDataa.user.role == "traveler") {
-            alert("register was successfull");
-            navigate("/chooseRegister");
-          } else {
-            alert("register was unsuccessfull");
-          }
-          // else if(myDataa.role=="patient")
-          // {
-          //   alert("login was successfull")
-          //   navigate("/patient");
-
-          // }
-          // else if(myDataa.role=="admin"){
-          //   navigate("/admin");
-          //   alert("login was successfull")
-
-          // }
+        
+              const ss =new Object();
+             
+              ss.inclusionId=branchObj.inclusionId;
+              setTourData((prevTourData) => ({
+                ...prevTourData,
+                tourInclusions: ss,
+                
+              }));
+        // props.sendToAvailability(clients);
         }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+        // var applyExclusions=(event)=>
+        // {
+        //     var branchObj=JSON.parse(event.target.value);
+        //     console.log("Ids");
+        //     console.log(branchObj.exclusionId);
+        //           const Exclusions =new Object();
+                 
+        //           Exclusions.exclusionId=branchObj.exclusionId;
+        //           setTourData((prevTourData) => [({
+        //             ...prevTourData,
+        //             tourExclusions: Exclusions
+                    
+        //           })]);
 
+        //     // props.sendToAvailability(clients);
+        //     }
+    
   return (
     <div class="main">
       <Menu />
@@ -181,9 +290,9 @@ function TourRegistration() {
         <div class="main-login">
           <div class="px-4 py-5 px-md-5 text-center bac">
             <div class="container">
-              <div class="row gx-lg-5 align-items-center">
-                <div class="col-lg-6 mb-5 mb-lg-0">
-                  <h1 class="my-5 display-3 fw-bold ls-tight">
+              <div class="row gx-lg-5 align-items-center justify-content-md-center">
+                <div class="col-lg-10 mb-5 mb-lg-0">
+                  <h1 class="my-5 display-3] fw-bold ls-tight">
                     The best offer <br />
                     <span class="text-primary">for your holiday trip</span>
                   </h1>
@@ -195,7 +304,7 @@ function TourRegistration() {
                   </p>
                 </div>
 
-                <div class="col-lg-6 mb-5 mb-lg-0 ">
+                <div class="col-lg-10 mb-5 mb-lg-0 ">
                   <div class="card">
                     <div class="card-body py-5 px-md-5">
                       <div>
@@ -207,10 +316,16 @@ function TourRegistration() {
 
                           {/* <input type="text" rows="5" id="form3Example3" class="form-control custom-width" /> */}
                           <textarea
+                          
                             class="form-control"
                             rows="3"
                             id="comment"
-                          ></textarea>
+                            onChange={(event) => {
+                              setTourData({
+                                ...tourData,
+                                tourDescription: event.target.value,
+                              });
+                            }}                          ></textarea>
                         </div>
                         <div class="col-md-12 mb-4">
                           <div class="form-outline">
@@ -223,9 +338,9 @@ function TourRegistration() {
                               id="form3Example1"
                               class="form-control"
                               onChange={(event) => {
-                                setTraveler({
-                                  ...traveler,
-                                  userName: event.target.value,
+                                setTourData({
+                                  ...tourData,
+                                  tourState: event.target.value,
                                 });
                               }}
                             />
@@ -242,9 +357,9 @@ function TourRegistration() {
                               id="form3Example1"
                               class="form-control"
                               onChange={(event) => {
-                                setTraveler({
-                                  ...traveler,
-                                  userName: event.target.value,
+                                setTourData({
+                                  ...tourData,
+                                  tourPrice: event.target.value,
                                 });
                               }}
                             />
@@ -325,9 +440,9 @@ function TourRegistration() {
                             id="form3Example1"
                             class="form-control"
                             onChange={(event) => {
-                              setTraveler({
-                                ...traveler,
-                                userName: event.target.value,
+                              setTourData({
+                                ...tourData,
+                                noOfDays: event.target.value,
                               });
                             }}
                           />
@@ -344,9 +459,9 @@ function TourRegistration() {
                             id="form3Example1"
                             class="form-control"
                             onChange={(event) => {
-                              setTraveler({
-                                ...traveler,
-                                userName: event.target.value,
+                              setTourData({
+                                ...tourData,
+                                noOfNights: event.target.value,
                               });
                             }}
                           />
@@ -363,11 +478,11 @@ function TourRegistration() {
                             id="form3Example1"
                             class="form-control"
                             onChange={(event) => {
-                              setTraveler({
-                                ...traveler,
-                                userName: event.target.value,
+                              setTourData({
+                                ...tourData,
+                                maxCapacity: event.target.value,
                               });
-                            }}
+                            }}     
                           />
                         </div>{" "}
                       </div>
@@ -382,11 +497,11 @@ function TourRegistration() {
                             id="form3Example1"
                             class="form-control"
                             onChange={(event) => {
-                              setTraveler({
-                                ...traveler,
-                                userName: event.target.value,
+                              setTourData({
+                                ...tourData,
+                                minCapacity: event.target.value,
                               });
-                            }}
+                            }}     
                           />
                         </div>{" "}
                       </div>
@@ -401,31 +516,15 @@ function TourRegistration() {
                             id="form3Example1"
                             class="form-control"
                             onChange={(event) => {
-                              setTraveler({
-                                ...traveler,
-                                userName: event.target.value,
+                              setTourData({
+                                ...tourData,
+                                tourImage: event.target.value,
                               });
-                            }}
+                            }}     
                           />
                         </div>{" "}
                       </div>
-                      <div class="form-outline mb-4">
-                        <label class="form-label" for="form3Example4">
-                          Phone Number
-                        </label>
-
-                        <input
-                          type="text"
-                          id="form3Example4"
-                          class="form-control"
-                          onChange={(event) => {
-                            setTraveler({
-                              ...traveler,
-                              mobileNumber: event.target.value,
-                            });
-                          }}
-                        />
-                      </div>
+                 
                       <div class="form-outline col-md-12">
                         <label class="form-label" for="inputState">
                           <h4>Inclusions</h4>
@@ -438,6 +537,8 @@ function TourRegistration() {
                                 type="checkbox"
                                 value={JSON.stringify(item)} // Replace "value" with the appropriate property from your data
                                 id={`checkbox-${index}`}
+                                onChange={(event) => applyInclusions(event)}
+
                               />
                               <div className="col-md-6">
                                 <label
@@ -477,12 +578,25 @@ function TourRegistration() {
                               <input
                                 className="form-check-input"
                                 type="checkbox"
-                                value={JSON.stringify(item)} // Replace "value" with the appropriate property from your data
-                                id={`checkbox-${index}`}
+                                // value={JSON.stringify(item)} // Replace "value" with the appropriate property from your data
+                                // id={`checkbox-${index}`}
+                                value={item.exclusionId}
+
+                                // onChange={(event) => handleExChange(event)}
+                                id={`exclusionId-${index}`}
+                                onChange={(e) =>
+                                  handleExChange(
+                                    index,
+                                    "exclusionId",
+                                    e.target.value
+                                  )
+                                }
+
                               />
+
                               <label
                                 className="form-check-label"
-                                htmlFor={`checkbox-${index}`}
+                                htmlFor={`exclusionId-${index}`}
                               >
                                 {item.exclusionDescription}{" "}
                                 {/* Replace "label" with the appropriate property from your data */}
@@ -537,7 +651,7 @@ function TourRegistration() {
                             <div className="row text-start">
                               <div className="col-md-6">
                                 <input
-                                  type="number"
+                                  type="text"
                                   className="form-control"
                                   placeholder="Description"
                                   id={`description-${index}`}
@@ -577,7 +691,7 @@ function TourRegistration() {
                                 </label>
 
                                 <input
-                                  type="time"
+                                  type="date"
                                   className="form-control"
                                   placeholder="Day Number"
                                   id={`arrivalTime-${index}`}
@@ -597,7 +711,7 @@ function TourRegistration() {
                                 </label>
 
                                 <input
-                                  type="time"
+                                  type="date"
                                   className="form-control"
                                   placeholder="Departure Time"
                                   id={`departureTime-${index}`}
@@ -652,7 +766,7 @@ function TourRegistration() {
                       <button
                         type="submit"
                         class="btn btn-primary btn-block mb-4 col-md-12"
-                        onClick={travelerRegister}
+                        onClick={login}
                       >
                         Submit
                       </button>

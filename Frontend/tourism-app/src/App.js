@@ -7,6 +7,8 @@ import ChooseRegister from "../src/Compenents/ChooseRegister";
 import AgentRegister from "../src/Compenents/AgentRegister";
 import Login from "../src/Compenents/Login"
 import Roughtfil from "./Compenents/roughtfil"
+import ViewTour from "./Compenents/ViewTour"
+import ViewItinerary from "./Compenents/ViewItinerary"
 
 import TourRegistartion from "../src/Compenents/TourRegistration";
 
@@ -26,7 +28,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<GetAllAgents />} />
+          <Route path="/" element={<ViewTour />} />
           <Route path="/login" element={<Login />} />
           <Route path="/agentregister" element={<AgentRegister />} />
           <Route path="/travelerregister" element={<TravelerRegister />} />
@@ -36,6 +38,11 @@ function App() {
           <Route path="/uploadimage" element={<UploadImage />} />
           <Route path="/getallagents" element={<GetAllAgents />} />
           <Route path="/deletealert" element={<DeleteAlert />} />
+          <Route path="/viewTour" element={<ViewTour />} />
+          <Route path="/viewItinerary" element={<ViewItinerary />} />
+
+          
+
 
 
 

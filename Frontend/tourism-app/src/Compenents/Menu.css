@@ -4,8 +4,16 @@
 
 }
 .card-img-top{
-    width: 50px;
-    height: 130px;
+    height: 100px;
 }
 .btn{
+}
+.log{
+    font-family: "Apricots", cursive;
+    font-style: italic;
+
+    color:#3E5B5B;
+    font-size: 26px;
+    text-decoration: none;
+    font-weight: 800;
 }

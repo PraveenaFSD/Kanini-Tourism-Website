@@ -8,8 +8,7 @@ function Menu() {
 
 	
   <nav class="navbar navbar-expand-lg navbar-light">
-  {/* <img class="card-img-top" src={logo} alt="Card image cap"/> */}
-  <a>KTW</a>
+<a className="log">KWT TOURISM</a><br/>
 
       <button class="navbar-toggler" type="button" 
       data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
