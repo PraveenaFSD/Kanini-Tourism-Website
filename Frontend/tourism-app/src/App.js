@@ -11,17 +11,22 @@ import Roughtfil from "./Compenents/roughtfil"
 import TourRegistartion from "../src/Compenents/TourRegistration";
 
 
+// import Modal from "react-bootstrap/Modal";
 
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import UploadImage from "./Compenents/UploadImage";
+import GetAllAgents from "./Compenents/GetAllAgents";
+import DeleteAlert from "./Compenents/DeleteAlert";
+
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<UploadImage />} />
+          <Route path="/" element={<GetAllAgents />} />
           <Route path="/login" element={<Login />} />
           <Route path="/agentregister" element={<AgentRegister />} />
           <Route path="/travelerregister" element={<TravelerRegister />} />
@@ -29,6 +34,10 @@ function App() {
           <Route path="/tourregistartion" element={<TourRegistartion />} />
           <Route path="/roughtfil" element={<Roughtfil />} />
           <Route path="/uploadimage" element={<UploadImage />} />
+          <Route path="/getallagents" element={<GetAllAgents />} />
+          <Route path="/deletealert" element={<DeleteAlert />} />
+
+
 
           
 

@@ -61,6 +61,16 @@ namespace LoginAPI.Services
             return false;
         }
 
+        public async Task<bool> DeleteAgent(IdDTO item)
+        {
+            var result = await _repo.Delete(item.id);
+            if(result != null)
+            {
+                return true;
+            }
+            return false ;
+        }
+
         public async Task<ICollection<Agent>> GetAllAgent()
         {
             ICollection<Agent> agents = await _repo.GetAll();

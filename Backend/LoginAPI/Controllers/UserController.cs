@@ -91,6 +91,32 @@ namespace LoginAPI.Controllers
 
 
         }
-       
+        [HttpGet("GetAllAgent")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> GetAllAgents()
+        {
+            var user = await _agentService.GetAllAgent();
+            if (user != null)
+            {
+                return Ok(user);
+            }
+            return NotFound(new Error(2, "There are no agrnt details currently  "));
+
+        }
+        [HttpDelete("Delete")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> DeleteAgent(IdDTO idDTO)
+        {
+            var user = await _agentService.DeleteAgent(idDTO);
+            if (user )
+            {
+                return Accepted("Delete Details Succecssfully");
+            }
+            return BadRequest(new Error(2, "Cannot Delete Agent Details  "));
+
+        }
+
     }
 }

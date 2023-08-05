@@ -37,24 +37,29 @@ namespace LoginAPI.Services
 
         public async Task<Agent?> Delete(int key)
         {
-            Agent agent = await Get(key);
-            {
+            
                 var transaction = _context.Database.BeginTransaction();
                 try
                 {
-                    transaction.CreateSavepoint("Agent");
-                    _context.Agents.Remove(agent);
-                    _context.Users.Remove(agent.User);
+                    Agent? agent = await Get(key);
+
+                    _context.Agents.Remove(agent );
+
                     await _context.SaveChangesAsync();
                     transaction.Commit();
+
                     return agent;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    transaction.RollbackToSavepoint("Agent");
+
+                    _logger.LogError(ex.Message);
+                    transaction.Rollback();
+
+                    return null;
                 }
                 return null;
-            }
+            
         }
 
         public async Task<Agent?> Get(int key)

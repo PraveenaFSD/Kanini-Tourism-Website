@@ -45,7 +45,7 @@ function AgentRegister() {
         if (res.status == 201) {
          
             alert("register was successfull");
-            $('#modalRelatedContent').modal('show');
+            // $('#modalRelatedContent').modal('show');
 
           }
           else{
