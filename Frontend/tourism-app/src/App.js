@@ -10,6 +10,7 @@ import Roughtfil from "./Compenents/roughtfil"
 import ViewTour from "./Compenents/ViewTour"
 import ViewItinerary from "./Compenents/ViewItinerary"
 
+
 import TourRegistartion from "../src/Compenents/TourRegistration";
 
 
@@ -21,6 +22,7 @@ import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import UploadImage from "./Compenents/UploadImage";
 import GetAllAgents from "./Compenents/GetAllAgents";
 import DeleteAlert from "./Compenents/DeleteAlert";
+import Booking from "./Compenents/Booking";
 
 
 function App() {
@@ -28,7 +30,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<ViewItinerary />} />
+          <Route path="/" element={<Booking />} />
           <Route path="/login" element={<Login />} />
           <Route path="/agentregister" element={<AgentRegister />} />
           <Route path="/travelerregister" element={<TravelerRegister />} />
@@ -40,6 +42,8 @@ function App() {
           <Route path="/deletealert" element={<DeleteAlert />} />
           <Route path="/viewTour" element={<ViewTour />} />
           <Route path="/viewItinerary" element={<ViewItinerary />} />
+          <Route path="/booking" element={<Booking />} />
+
 
           
 

@@ -1,12 +1,13 @@
 import Menu from "./Menu";
 import { AiFillTwitterCircle } from "react-icons/ai";
 import { BsFacebook } from "react-icons/bs";
-import { MdOutlineCancelPresentation } from "react-icons/md";
+import { FcDisapprove } from "react-icons/fc";
 import "./ViewItinerary.css";
 import { FcApproval } from "react-icons/fc";
 import { Link, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import log from "../Images/bech.jpg";
+import ClipLoader from "react-spinners/ClipLoader";
 
 function ViewItinerary() {
   const [itinerary, setItinerary] = useState([]);
@@ -57,7 +58,8 @@ function ViewItinerary() {
       <br />
       <h3 style={{ textAlign: "left" }}>Mahabilliburan Chennai</h3>
       <div>
-        <div className="button-container">
+ 
+        <div className="flex-container">
           <button
             onClick={() => handleButtonClick("button1")}
             className={activeButton === "button1" ? "active-button" : ""}
@@ -119,28 +121,57 @@ function ViewItinerary() {
         )}
         {activeButton === "button2" && (
           <div>
-            {inclusions.map((u) => (
-              <div className="inclusions-text">
-                <br />
+         {inclusions.length === 0 ? (
+      <div className="loading-text">      <br/>
 
-                <i>
-                  <FcApproval />
-                  &nbsp;{u}
-                </i>
-              </div>
-            ))}
+        <div className="spin">
+          <ClipLoader />
+        </div>
+        <i>Loading Inclusion Details....</i>
+      </div>
+    ) : (
+      exclusions.map((u) => (
+        <div className="exclusions-text" key={u}>
+          <br />
+        
+          <i>
+            <a> 
+              <FcApproval />
+            </a>
+            &nbsp;{u}
+          </i>
+        </div>
+      ))
+    )}
           </div>
         )}
-        {activeButton === "button3" && <div> {exclusions.map((u) => (
-              <div className="exclusions-text">
-                <br />
+        {activeButton === "button3" && (
+  <div>
+    {exclusions.length === 0 ? (
+      <div className="loading-text">      <br/>
 
-                <i>
-                  <MdOutlineCancelPresentation />
-                  &nbsp;{u}
-                </i>
-              </div>
-            ))}</div>}
+        <div className="spin">
+          <ClipLoader />
+        </div>
+        <i>Loading Exclusion Details....</i>
+      </div>
+    ) : (
+      exclusions.map((u) => (
+        <div className="exclusions-text" key={u}>
+          <br />
+        
+          <i>
+            <a>
+              <FcDisapprove />
+            </a>
+            &nbsp;{u}
+          </i>
+        </div>
+      ))
+    )}
+  </div>
+)}
+
         {activeButton === "button4" && (
           <div className="button3-text">
             <div>
@@ -232,6 +263,10 @@ function ViewItinerary() {
           </div>
         )}
       </div>
+      <br/>
+      <div class="d-grid gap-2 d-md-block">
+  <button id = "book-btn"  type="button">Book Now</button>
+</div>   
     </div>
   );
 }

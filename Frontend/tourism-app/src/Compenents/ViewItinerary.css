@@ -3,18 +3,16 @@
 }
 .main-it{
     margin: 2rem;
+    background-color: #e5e7e5;
 }.btn button{
    
 }
 
-.button-container {
-    display: flex;
-  }
+
   
-  button {
-    font-size: 20px;
-    padding-left: 6.6rem;
-    padding-right: 6.6rem;
+  .flex-container button {
+    padding-left: 7.2rem;
+padding-right: 7.3rem;
     padding-top: 1rem;
     padding-bottom: 1rem;
 border:none;
@@ -68,10 +66,63 @@ font-weight: 600;
     font-size: 30px;
   }
   
-  .exclusions-text i{
-color: #8cdad9;
+  .exclusions-text .cancel-name{
+color: #245028;
+  }
+  .spin{
+    height:100;
+    width:"100";
+    color:#4fa94d;
+    /* secondaryColor:#4fa94d;
+    radius='12.5';
+    ariaLabel="mutating-dots-loading"
+    wrapperStyle={{}}
+    wrapperClass=""
+    visible={true} */
   }
   
+  .final-btn button{
+    background-color: #4fa94d;
+  }
+  /* .flex-container {
+    display: flex;
+    flex-direction: row;
+    font-size: 40px;
+    text-align: center;
+    width: 40%;
+    justify-content: center;
+  }
   
+  .flex-item-left {
+    background-color: #8cdad9;
+    flex: 50%;
+    color: #ffffff;
+  } */
+  .flex-container {
+    display: flex;
+    flex-direction: row;
+  }
   
-  
+  /* Responsive layout - makes a one column layout instead of a two-column layout */
+  @media (max-width: 800px) {
+    .flex-container {
+      flex-direction: column;
+    }
+  }
+  #book-btn{
+    display: inline-block;
+    font-size: 23px;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #fff;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 18px;
+    padding-right: 18px;
+    text-align: center;   
+   border:none;
+    background: #8cdad9;
+    cursor: pointer;
+    line-height: normal;
+}

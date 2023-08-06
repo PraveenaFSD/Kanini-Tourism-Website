@@ -97,6 +97,7 @@ namespace TourAPI.Utilities
                 tour.MinCapacity = item.MinCapacity;
                 tour.TourImage = item.TourImage;
                 tour.TourItinerary = item.TourItinerary;
+                tour.TourDates= item.TourDates;
                 List<string> te = await exclustiondatas(item.TourExclusions);
                 List<string> ti = await inclustiondatas(item.TourInclusions);
                 tour.TourExclusions = te;

@@ -71,7 +71,7 @@ namespace TourAPI.Services
         {
             try
             {
-                var tour = await _context.Tour.Include(c => c.TourExclusions).Include(c => c.TourInclusions)
+                var tour = await _context.Tour.Include(c => c.TourDates).Include(c => c.TourExclusions).Include(c => c.TourInclusions)
                    .Include(c => c.TourItinerary).FirstOrDefaultAsync(u => u.TourId == key);
                 return tour;
 
