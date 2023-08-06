@@ -3,4 +3,75 @@
 }
 .main-it{
     margin: 2rem;
+}.btn button{
+   
 }
+
+.button-container {
+    display: flex;
+  }
+  
+  button {
+    font-size: 20px;
+    padding-left: 6.6rem;
+    padding-right: 6.6rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+border:none;
+
+
+    font-weight: 700;
+  }
+  
+  .active-button {
+    background-color: #8cdad9; /* Set the background color for the active button */
+    color: #fff; /* Set the text color for the active button */
+    border-color: #8cdad9; /* Set the border color for the active button */
+  }
+  .sub-policy{
+    color: rgb(115, 159, 83);
+    font-size: 16px;
+font-weight: 600;
+
+    
+  }
+  .button3-text{
+    text-align: left;
+  }
+  .main-policy{
+    font-weight: bold;
+    font-size: 25px;
+}
+.bullet-list {
+    list-style-type: none;
+    padding-left: 20px;
+  }
+  
+  .bullet-list li {
+    position: relative;
+    padding-left: 30px;
+  }
+  
+  .bullet-list li::before {
+    content: "\2022";
+    color: green;
+    position: absolute;
+    left: 5px; /* Adjust the left position */
+    top: 50%; /* Adjust the top position */
+    transform: translate(-50%, -50%); /* Center the bullet vertically */
+    font-size: 28px; /* Increase the size of the bullet */
+  }
+  .inclusions-text{
+    font-size: 30px;
+  }
+  .exclusions-text{
+    font-size: 30px;
+  }
+  
+  .exclusions-text i{
+color: #8cdad9;
+  }
+  
+  
+  
+  

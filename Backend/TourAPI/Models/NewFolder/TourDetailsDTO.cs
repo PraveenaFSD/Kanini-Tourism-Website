@@ -1,6 +1,6 @@
 ﻿namespace TourAPI.Models.NewFolder
 {
-    public class TourAddedDTO
+    public class TourDetailsDTO
     {
         public string? TourName { get; set; }
         public string? TourDescription { get; set; }

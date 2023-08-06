@@ -17,13 +17,13 @@ namespace TourAPI.Utilities
 
         }
 
-        public async  Task<ICollection<TourAddedDTO>> TouIntoLoanDTO(ICollection<Tour> tours)
+        public async  Task<ICollection<TourDetailsDTO>> TourIntoTourDTO(ICollection<Tour> tours)
         {
-            ICollection<TourAddedDTO> tourAddedDTO=new List<TourAddedDTO>();
-            TourAddedDTO tour = new TourAddedDTO();
+            ICollection<TourDetailsDTO> tourAddedDTO=new List<TourDetailsDTO>();
+            TourDetailsDTO tour = new TourDetailsDTO();
             foreach (var item in tours)
             {
-                tour = new TourAddedDTO();
+                tour = new TourDetailsDTO();
                
                 tour.TourDescription = item.TourDescription;
                 tour.TourPrice = item.TourPrice;
@@ -84,6 +84,31 @@ namespace TourAPI.Utilities
             return null;
         }
 
+        public  async Task<TourDetailsDTO> TourIntoTourDTO(Tour item)
+        {
+            TourDetailsDTO tour = new TourDetailsDTO();
+           
 
+                tour.TourDescription = item.TourDescription;
+                tour.TourPrice = item.TourPrice;
+                tour.NoOfDays = item.NoOfDays;
+                tour.NoOfNights = item.NoOfNights;
+                tour.MaxCapacity = item.MaxCapacity;
+                tour.MinCapacity = item.MinCapacity;
+                tour.TourImage = item.TourImage;
+                tour.TourItinerary = item.TourItinerary;
+                List<string> te = await exclustiondatas(item.TourExclusions);
+                List<string> ti = await inclustiondatas(item.TourInclusions);
+                tour.TourExclusions = te;
+                tour.TourInclusions = ti;
+
+
+            
+            if (tour != null)
+            {
+                return tour;
+            }
+            return null;
+        }
     }
 }

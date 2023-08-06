@@ -1,69 +1,31 @@
 import React, { useState } from 'react';
 import { AiOutlineCloseCircle } from "react-icons/ai";
-
+import './roughtfil.css'
 function Roughtfil() {
   const [dates, setDates] = useState([{ startDate: '1', endDate: '1' }]);
 
-  const handleAddDate = () => {
-    setDates([...dates, { startDate: '', endDate: '' }]);
-  };
 
-  const handleDateChange = (index, field, value) => {
-    const updatedDates = [...dates];
-    updatedDates[index][field] = value;
-    setDates(updatedDates);
-  };
-
-  const handleDeleteDate = (index) => {
-    const updatedDates = [...dates];
-    updatedDates.splice(index, 1);
-    setDates(updatedDates);
-  };
+    const [activeButton, setActiveButton] = useState('button1'); // Default active button
+  
+    const handleButtonClick = (buttonId) => {
+      setActiveButton(buttonId);
+    };
 
   return (
     <div>
       <h5> Tour Dates</h5> <br />
 
-      {dates.map((date, index) => (
-        <div className="row" key={index}>
-          <div className="col-md-5">
-            <label className="form-label" htmlFor={`startDate-${index}`}>
-              Start Date
-            </label>
-            <input
-              type="date"
-              className="form-control"
-              id={`startDate-${index}`}
-              value={date.startDate}
-              onChange={(e) => handleDateChange(index, 'startDate', e.target.value)}
-            />
-          </div>
-          <div className="col-md-5">
-            <label className="form-label" htmlFor={`endDate-${index}`}>
-              End Date
-            </label>
-            <input
-              type="date"
-              className="form-control"
-              id={`endDate-${index}`}
-              value={date.endDate}
-              onChange={(e) => handleDateChange(index, 'endDate', e.target.value)}
-            />
-          </div>
-          <div className="col-md-2">
-            <br/>            
+      <div className='btn'>
+        <button onClick={() => handleButtonClick('button1')}>Button 1</button>
+        <button onClick={() => handleButtonClick('button2')}>Button 2</button>
+        <button onClick={() => handleButtonClick('button3')}>Button 3</button>
+        <button onClick={() => handleButtonClick('button4')}>Button 4</button>
+      </div>
 
-            {/* "Delete" button to remove the particular date */}
-           <i onClick={() => handleDeleteDate(index)} className="loan-search-icon" style={{'cursor':'pointer'}}>
-                      <AiOutlineCloseCircle />
-                    </i>
-          </div>
-        </div>
-      ))}
-
-      <h6>
-        <button onClick={handleAddDate}>+</button>
-      </h6>
+      {activeButton === 'button1' && <div>Content for Button 1</div>}
+      {activeButton === 'button2' && <div>Content for Button 2</div>}
+      {activeButton === 'button3' && <div>Content for Button 3</div>}
+      {activeButton === 'button4' && <div>Content for Button 4</div>}
     </div>
   );
 }

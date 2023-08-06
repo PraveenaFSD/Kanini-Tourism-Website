@@ -5,7 +5,9 @@ namespace TourAPI.Interfaces
 {
     public interface IAdapterDTO
     {
-        public Task<ICollection<TourAddedDTO>> TouIntoLoanDTO(ICollection<Tour> tour);
+        public Task<ICollection<TourDetailsDTO>> TourIntoTourDTO(ICollection<Tour> tour);
+        public Task<TourDetailsDTO> TourIntoTourDTO(Tour tour);
+
 
     }
 }

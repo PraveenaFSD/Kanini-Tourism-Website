@@ -35,6 +35,30 @@ namespace TourAPI.Services
             return null;
         }
 
+        public async Task<ICollection<TourDetailsDTO>> GetAllTourPackagesData()
+        {
+            ICollection<Tour> toures = await _tourRepo.GetAll();
+
+            ICollection<TourDetailsDTO> tourDetails = await _adapterDTO.TourIntoTourDTO(toures);
+
+            if (tourDetails != null)
+            {
+                return tourDetails;
+            }
+            return null;
+        }
+
+        public async Task<TourDetailsDTO> GetTourpackage(IdDTO key)
+        {
+            Tour tour = await _tourRepo.Get(key.id);
+            TourDetailsDTO tourDetails = await _adapterDTO.TourIntoTourDTO(tour);
+            if (tourDetails != null)
+            {
+                return tourDetails;
+            }
+            return null;
+        }
+
         public async Task<bool> UpdateTourpackage(Tour item)
         {
             Tour tour = await _tourRepo.Update(item);

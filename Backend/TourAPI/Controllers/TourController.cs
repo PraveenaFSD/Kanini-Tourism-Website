@@ -67,13 +67,27 @@ namespace TourAPI.Controllers
             return NotFound(new Error(1, "There is notour details currently "));
 
         }
-        [HttpGet("GetAllTourPackageAsDatas")]
-        [ProducesResponseType(typeof(ICollection<TourAddedDTO>), StatusCodes.Status200OK)]
+        [HttpPost("GetTourPackageAsData")]
+        [ProducesResponseType(typeof(TourDetailsDTO), StatusCodes.Status200OK)]
 
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<ICollection<TourAddedDTO>>> GetAllTourPackageAsDatas()
+        public async Task<ActionResult<TourDetailsDTO>> GetTourPackage(IdDTO key)
         {
-            var tourdetails = await _tourService.GetAllTourPackages();
+            var tourdetails = await _tourService.GetTourpackage(key);
+            if (tourdetails != null)
+            {
+                return Ok(tourdetails);
+            }
+            return NotFound(new Error(1, "There is no tour details currently "));
+
+        }
+        [HttpGet("GetAllTourPackageAsDatas")]
+        [ProducesResponseType(typeof(ICollection<TourDetailsDTO>), StatusCodes.Status200OK)]
+
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<ICollection<TourDetailsDTO>>> GetAllTourPackageAsDatas()
+        {
+            var tourdetails = await _tourService.GetAllTourPackagesData();
             if (tourdetails != null)
             {
                 return Ok(tourdetails);
