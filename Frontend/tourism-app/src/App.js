@@ -17,6 +17,7 @@ import TourRegistartion from "../src/Compenents/TourRegistration";
 // import Modal from "react-bootstrap/Modal";
 
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import "@fortawesome/fontawesome-free/css/all.min.css";
 
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import UploadImage from "./Compenents/UploadImage";
@@ -30,7 +31,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Booking />} />
+          <Route path="/" element={<Menu />} />
           <Route path="/login" element={<Login />} />
           <Route path="/agentregister" element={<AgentRegister />} />
           <Route path="/travelerregister" element={<TravelerRegister />} />

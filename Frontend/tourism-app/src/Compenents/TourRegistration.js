@@ -286,7 +286,6 @@ function TourRegistration() {
     <div class="main">
       <Menu />
       <div class="container">
-        reghhjkj
         <div class="main-login">
           <div class="px-4 py-5 px-md-5 text-center bac">
             <div class="container">

@@ -36,7 +36,7 @@ function ViewTour() {
 
   return (
     <div className="main-tour">
-      <div class="main">
+      <div class="main-viewTour">
         <div class="container-expand-lg">
 
           <div class="card-deck row">

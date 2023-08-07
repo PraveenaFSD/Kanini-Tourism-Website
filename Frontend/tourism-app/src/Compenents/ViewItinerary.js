@@ -13,6 +13,7 @@ function ViewItinerary() {
   const [itinerary, setItinerary] = useState([]);
   const [inclusions, setInclusions] = useState([]);
   const [exclusions, setExclusions] = useState([]);
+  const navigate = useNavigate();
 
   const [isActive, setIsActive] = useState(false);
   const [user, setUser] = useState({
@@ -24,7 +25,9 @@ function ViewItinerary() {
     setIsActive(true);
     setActiveButton(buttonId);
   };
-
+const bookingpage=()=>{
+  navigate('/booking')
+}
   useEffect(() => {
     const token = localStorage.getItem("tourId");
     user.id = token;
@@ -173,8 +176,8 @@ function ViewItinerary() {
 )}
 
         {activeButton === "button4" && (
-          <div className="button3-text">
-            <div>
+          <div className="button3-text" >
+            <div >
               <br />
               <h2 style={{ fontWeight: "bold" }}>
                 {" "}
@@ -265,7 +268,7 @@ function ViewItinerary() {
       </div>
       <br/>
       <div class="d-grid gap-2 d-md-block">
-  <button id = "book-btn"  type="button">Book Now</button>
+  <button id = "book-btn"  type="button" onClick={bookingpage}>Book Now</button>
 </div>   
     </div>
   );

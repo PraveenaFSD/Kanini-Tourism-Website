@@ -17,3 +17,21 @@
     text-decoration: none;
     font-weight: 800;
 }
+.ss{
+    width:250px;
+    font-weight: 900;
+}
+.nav-item{
+font-size: 20px;
+font-weight: 600;
+color: rgb(0, 0, 0);
+}
+.icon-call{
+    margin-top: 0.2rem;
+    font-size: 25px;
+    margin-left: 15rem;
+
+}
+.icon-call i{
+    color: rgb(100, 187, 187);
+}

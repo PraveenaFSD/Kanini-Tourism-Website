@@ -3,7 +3,7 @@
 }
 #book-btn{
     display: inline-block;
-    font-size: 23px;
+    font-size: 13px;
     font-weight: 700;
     text-transform: uppercase;
     text-decoration: none;
@@ -23,8 +23,8 @@
     color: rgb(0, 0, 0);
     margin-left: 0.5rem;
 }
-.main{
-    background-color: rgb(234, 233, 232);
+.main-viewTour{
+    background-color: rgb(232, 230, 229);
 }
 .container-expand-lg{
 margin: 2REM;
