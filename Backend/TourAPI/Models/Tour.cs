@@ -13,8 +13,6 @@ namespace TourAPI.Models
         public float TourPrice { get; set; }
         public int NoOfDays { get; set; }
         public int NoOfNights { get; set;}
-        public int MaxCapacity { get; set; }
-        public int MinCapacity { get; set; }
         public string? TourImage { get; set; }
         public ICollection<TourDates>? TourDates  { get; set; }
         public ICollection<TourInclusions>? TourInclusions { get; set; }

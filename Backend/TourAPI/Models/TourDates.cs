@@ -14,6 +14,8 @@ namespace TourAPI.Models
         public Tour? Tour { get; set; }
         public DateTime StartDate { get; set;}
         public DateTime EndDate { get; set; }
+        public int MaxCapacity { get; set; }
+
 
     }
 }

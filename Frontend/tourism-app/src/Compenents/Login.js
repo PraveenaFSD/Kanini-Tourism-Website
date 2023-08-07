@@ -28,11 +28,11 @@ function Login() {
         var myDataa = await res.json();
         localStorage.setItem("token", myDataa.token);
         localStorage.setItem("role", myDataa.role);
-        // localStorage.setItem("userId", myDataa.userId)
+       localStorage.setItem("userId", myDataa.userId)
         if (res.status == 200) {
-          if (myDataa.role == "traveler") {
-            navigate("/chooseRegister");
-          } else {
+        
+            navigate("/chooseRegister");}
+           else {
             alert("login was unsuccessfull");
           }
           // else if(myDataa.role=="patient")
@@ -46,9 +46,9 @@ function Login() {
           //   alert("login was successfull")
 
           // }
-        } else {
-          alert("login was unsuccessfull");
-        }
+        // } else {
+        //   alert("login was unsuccessfull");
+        // }
       })
       .catch((err) => {
         console.log(err);

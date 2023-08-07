@@ -45,7 +45,7 @@ namespace LoginAPI.Services
                 if (agent != null && agent.Status == "approved".ToLower() || (userData.Role == "traveler") || (userData.Role == "admin"))
                 {
                     userDetails = new UserDTO();
-                    userDetails.UserId = user.UserId;
+                    userDetails.UserId = userData.UserId;
                     userDetails.Role = userData.Role;
                     userDetails.Token = await _tokenGenerate.GenerateToken(userDetails);
                     return userDetails;

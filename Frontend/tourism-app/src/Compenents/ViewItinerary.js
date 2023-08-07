@@ -59,7 +59,7 @@ const bookingpage=()=>{
     <div className="main-it">
       <img class="card-img-top main-it-img" src={log} alt="Card image cap" />
       <br />
-      <h3 style={{ textAlign: "left" }}>Mahabilliburan Chennai</h3>
+      <h3 style={{ textAlign: "left" }}></h3>
       <div>
  
         <div className="flex-container">
@@ -100,18 +100,16 @@ const bookingpage=()=>{
                       <img src={log} class="card-img" alt="..." />
                     </div>
                     <div class="col-md-8">
-                      <div class="card-body">
+                      <div class="card-body-iyinerary">
                         <h5 class="card-title">
-                          {u.tourDestinationId + "0o0"}
+                          {u.locationName }
                         </h5>
                         <p class="card-text">
-                          This is a wider card with supporting text below as a
-                          natural lead-in to additional content. This content is
-                          a little bit longer.
+                          {u.locationDescription}
                         </p>
                         <p class="card-text">
                           <small class="text-muted">
-                            Last updated 3 mins ago
+                          {u.destinationActivity}
                           </small>
                         </p>
                       </div>

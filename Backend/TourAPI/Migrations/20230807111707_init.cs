@@ -46,8 +46,6 @@ namespace TourAPI.Migrations
                     TourPrice = table.Column<float>(type: "real", nullable: false),
                     NoOfDays = table.Column<int>(type: "int", nullable: false),
                     NoOfNights = table.Column<int>(type: "int", nullable: false),
-                    MaxCapacity = table.Column<int>(type: "int", nullable: false),
-                    MinCapacity = table.Column<int>(type: "int", nullable: false),
                     TourImage = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -63,7 +61,8 @@ namespace TourAPI.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TourId = table.Column<int>(type: "int", nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    MaxCapacity = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

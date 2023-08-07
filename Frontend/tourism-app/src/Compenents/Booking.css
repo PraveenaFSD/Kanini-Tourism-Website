@@ -112,3 +112,16 @@
   bottom: calc(100% - 2.5em);
   left: 1em;
 }
+.total-btn{
+    border:none;
+    background-color: aliceblue;
+    font-size: 40px;
+}
+.available-capacity{
+    font-weight: 600;
+
+}
+.pay-btn{
+    background-color: aquamarine;
+    color: aliceblue;
+}

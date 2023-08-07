@@ -51,10 +51,12 @@ function ViewTour() {
                   </div>
                   <div class="card-body">
                     <h4 class="card-title">{u.tourDescription}</h4>
-                    <p style={{ textAlign: "left", color: "grey" }}>Some quick example tdsscscscext to build on the card title and make up the bulk of the card's content.</p>
+                    <p style={{  color: "black" }}>Number of Days {u.noOfDays}</p>
+                    <p style={{  color: "black" }}>Number of Nights {u.noOfNights}</p>
+
                     <hr />From  <span className="money">${u.tourPrice}</span><hr />
                     <button type="button" id="book-btn" onClick={() => bookNow(u.tourId)}>
-                      Book Now
+                     More Info
                     </button>
                   </div>
                 </div>

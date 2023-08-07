@@ -23,6 +23,7 @@ import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import UploadImage from "./Compenents/UploadImage";
 import GetAllAgents from "./Compenents/GetAllAgents";
 import DeleteAlert from "./Compenents/DeleteAlert";
+import BookingAlert from "./Compenents/BookingAlert";
 import Booking from "./Compenents/Booking";
 
 
@@ -31,7 +32,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Menu />} />
+          <Route path="/" element={<GetAllAgents />} />
           <Route path="/login" element={<Login />} />
           <Route path="/agentregister" element={<AgentRegister />} />
           <Route path="/travelerregister" element={<TravelerRegister />} />
@@ -41,6 +42,7 @@ function App() {
           <Route path="/uploadimage" element={<UploadImage />} />
           <Route path="/getallagents" element={<GetAllAgents />} />
           <Route path="/deletealert" element={<DeleteAlert />} />
+          <Route path="/bookingalert" element={<BookingAlert />} />
           <Route path="/viewTour" element={<ViewTour />} />
           <Route path="/viewItinerary" element={<ViewItinerary />} />
           <Route path="/booking" element={<Booking />} />

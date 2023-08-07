@@ -29,8 +29,7 @@ namespace TourAPI.Utilities
                 tour.TourPrice = item.TourPrice;
                 tour.NoOfDays = item.NoOfDays;
                 tour.NoOfNights = item.NoOfNights;
-                tour.MaxCapacity = item.MaxCapacity;
-                tour.MinCapacity = item.MinCapacity;
+           
                 tour.TourImage = item.TourImage;
                 tour.TourItinerary = item.TourItinerary;
                 List<string> te = await exclustiondatas(item.TourExclusions);
@@ -93,8 +92,7 @@ namespace TourAPI.Utilities
                 tour.TourPrice = item.TourPrice;
                 tour.NoOfDays = item.NoOfDays;
                 tour.NoOfNights = item.NoOfNights;
-                tour.MaxCapacity = item.MaxCapacity;
-                tour.MinCapacity = item.MinCapacity;
+           
                 tour.TourImage = item.TourImage;
                 tour.TourItinerary = item.TourItinerary;
                 tour.TourDates= item.TourDates;

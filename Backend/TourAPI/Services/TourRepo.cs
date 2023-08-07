@@ -113,8 +113,6 @@ namespace TourAPI.Services
                     tour.TourPrice=item.TourPrice;
                     tour.NoOfDays=item.NoOfDays;
                     tour.NoOfNights=item.NoOfNights;
-                    tour.MaxCapacity=item.MaxCapacity;
-                    tour.MinCapacity=item.MinCapacity;
                     tour.TourExclusions=item.TourExclusions;
                     tour.TourInclusions=item.TourInclusions;
                     tour.TourItinerary = item.TourItinerary;

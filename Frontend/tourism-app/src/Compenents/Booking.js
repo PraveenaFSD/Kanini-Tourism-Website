@@ -17,8 +17,17 @@ import ClipLoader from "react-spinners/ClipLoader";
 import "./Booking.css";
 function Booking() {
     const [selectedRow, setSelectedRow] = useState(null);
+    const [max, setMax] = useState(null);
 
-  const handleCheckboxChange = (index) => {
+  const handleCheckboxChange = (index, id,maxCount) => {
+    setBooking({
+        ...booking,
+        tourDateId: id,
+      });   
+
+      setMax(maxCount)  ;
+      console.log(max)
+    // console.log(booking.tourDateId)
     if (selectedRow === index) {
       setSelectedRow(null);
     } else {
@@ -26,27 +35,59 @@ function Booking() {
     }
   };
     const [booking, setBooking] = useState({
-        tourDescription: "11",
-       
+        tourId: 0,
+        tourDateId: 0,
+        userId: 0,
       
-        tourItinerary: [
+   
+      
+        passengers: [
           {
-            dayNo: 1,
-            locationName: "fes",
-            locationDescription: "sfd",
-            arivalTime: "",
-            depatureTime: "",
-            destinationImage: "3d",
-            destinationActivity: "dss"
+            name: "",
+            age: 0,
+            gender: "",
+            phoneNumber: "",
           }
-        ]
+        ],
+        billings: {
+            tourId: 0,
+            totalAmount: 0,
+            creditCardName: "",
+            creditCardNumber: "",
+          },
       });
   const [tourDates, SetTourDates] = useState([]);
   const [tour, SetTour] = useState([]);
   const [user, setUser] = useState({
-    id: "13",
+    id: localStorage.getItem("tourId"),
   });
+  const [showDeleteAlert, setShowDeleteAlert] = useState(false);
+
+  const alertdel = (id) => {
+
+    setSelectedAgentId(id);
+    console.log(selectedAgentId +"ched id")
+    setShowDeleteAlert(true);
+  };
+
+  const closeDeleteAlert = () => {
+    setShowDeleteAlert(false);
+  };
+
   useEffect(() => {
+   
+
+booking.tourId=localStorage.getItem("tourId")
+booking.billings.tourId=localStorage.getItem("tourId")
+
+  setBooking({
+    ...booking,
+    userId: localStorage.getItem("userId"),
+  });
+
+     
+        
+      
     fetch("http://localhost:5128/api/Tour/GetTourPackageAsData", {
       method: "POST",
       headers: {
@@ -64,26 +105,28 @@ function Booking() {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  },[]);
   const handleDeleteEntry = (index) => {
     const updatedAdds = [...passenger];
     console.log(index);
     updatedAdds.splice(index, 1);
     setPassenger(updatedAdds);
-    // setTourData((prevTourData) => ({
-    //   ...prevTourData,
-    //   tourItinerary: updatedAdds,
-    // }));
+    setBooking((prevTourData) => ({
+       ...prevTourData,
+       passengers: updatedAdds,
+     }));
   };
   const handleAddChange = (index, field, value) => {
     const updatedAdds = [...passenger];
     updatedAdds[index][field] = value;
     setPassenger(updatedAdds);
     console.log(passenger);
-    // setTourData((prevTourData) => ({
-    //   ...prevTourData,
-    //   tourItinerary: updatedAdds,
-    // }));
+    setBooking((prevTourData) => ({
+      ...prevTourData,
+      passengers: updatedAdds,
+    }));
+    console.log("bookpas")
+    console.log(...booking.passengers)
   };
   const handleAddEntry = () => {
     setPassenger([
@@ -105,7 +148,73 @@ function Booking() {
       phoneNumber: "",
     },
   ]);
+  console.log("max"+tour.maxCapacity)
 
+//   const [d, setD] = useState (localStorage.getItem("tourId"))
+//   const [u, setU] = useState (localStorage.getItem("userId"))
+var pay =()=>{
+
+
+    if (passenger.length - 1 > max - 1) {
+        alert("You Exceeded the maximum capacity so you cannot book")
+      }
+      else{ setBooking((prevState) => ({
+        ...prevState,
+        billings: {
+          ...prevState.billings,
+          totalAmount: tour.tourPrice*passenger.length,
+        },
+      }));
+      console.log(booking)
+fetch("http://localhost:5011/api/Booking/AddBooking", {
+   method: "POST",
+   headers: {
+     accept: "text/plain",
+     "Content-Type": "application/json",
+   },
+   body: JSON.stringify({ ...booking, booking: {} }),
+ })
+   .then(async (res) => {
+     var myDataa = await res.json();
+   
+     if (res.status == 201) {
+        // setIsModalOpen(true); // Open the modal
+
+       }
+       else{
+         alert("register was unsuccessfull");
+
+       }
+   
+     
+   })
+   .catch((err) => {
+     console.log(err);
+   });
+
+      }
+    // setBooking({
+    //     ...booking,
+    //     tourId:  d
+    //   }); 
+    //   setBooking({
+    //     ...booking,
+    //     userId:  u
+    //   }); 
+   
+     
+
+  
+    const alertdel = () => {
+
+        setShowDeleteAlert(true);
+      };
+    
+      
+
+    
+   
+}
   return (
     <div className="main-">
       <img class="card-img-top main-it-img" src={log} alt="Card image cap" />
@@ -123,10 +232,9 @@ function Booking() {
                 <div class="card_text">
                   <p>Number of Days {tour.noOfDays}</p>
                   <p>Number of Nights {tour.noOfNights}</p>
-                  <p>Maximum People {tour.maxCapacity}</p>
 
                   <div>
-                    <h3> Available Dates</h3>
+                    <h3 className="available-capacity"> Available Dates and Capacity</h3>
                   </div>
 
                   <table className="table table-striped">
@@ -134,6 +242,8 @@ function Booking() {
                       <tr>
                         <th scope="col">Start Date</th>
                         <th scope="col">End Date</th>
+                        <th scope="col">Max Capacity</th>
+
                         <th scope="col">Select Date </th>
 
                       </tr>
@@ -161,9 +271,12 @@ function Booking() {
                             })}
                           </td>
                           <td>
+                           {u.maxCapacity}
+                          </td>
+                          <td>
                            <input type="checkbox"
                            checked={selectedRow === index}
-                           onChange={() => handleCheckboxChange(index)}/>
+                           onChange={() => handleCheckboxChange(index,u.tourDateId,u.maxCapacity)}/>
                           </td>
                         </tr>
                       </tbody>
@@ -175,6 +288,7 @@ function Booking() {
           </li>
         </ul>
       </div>
+
       <div class="card">
         <div class="card-body py-5 px-md-5">
           <div>
@@ -185,7 +299,7 @@ function Booking() {
                 <div className="row text-start">
                   <div className="col-md-6">
                     <input
-                      type="number"
+                      type="text"
                       className="form-control"
                       placeholder="Name"
                       id={`name-${index}`}
@@ -275,7 +389,16 @@ function Booking() {
                       type="text"
                       className="form-control"
                       placeholder="Name on Card"
-                    
+                      onChange={(event) => {
+                              
+                        setBooking((prevState) => ({
+                            ...prevState,
+                            billings: {
+                              ...prevState.billings,
+                              creditCardName: event.target.value,
+                            },
+                          }));
+                      }}
                     />
       </div>
          <div className="col-md-6">
@@ -283,16 +406,32 @@ function Booking() {
                       type="text"
                       className="form-control"
                       placeholder="Credit Card Number"
-                     
+                      onChange={(event) => {
+                       
+                        setBooking((prevState) => ({
+                          ...prevState,
+                          billings: {
+                            ...prevState.billings,
+                            creditCardNumber: event.target.value,
+                          },
+                        }));
+                      }}
                     />
       </div>
-    </div><br/><h2>Total Amount $ {tour.tourPrice*passenger.length-1}</h2>
-            <button
+    </div><br/><button className="total-btn"    >Total Amount $ {tour.tourPrice*passenger.length-1}</button>
+            <button className="pay-btn"
               type="submit"
-              class="btn btn-primary btn-block mb-4 col-md-12"
-            >
-              Pay Now{" "}
+              class="btn  btn-block mb-4 col-md-12"
+              onClick={pay}
+              >
+                Pay Now
             </button>
+            <button  onlick={alertdel}>alert</button>
+            
+      {/* Conditionally render the DeleteAlert component */}
+      {selectedAgentId && (
+        <DeleteAlert prod={selectedAgentId} onClose={closeDeleteAlert} show={showDeleteAlert} />
+      )}
           </div>
         </div>
       </div>{" "}

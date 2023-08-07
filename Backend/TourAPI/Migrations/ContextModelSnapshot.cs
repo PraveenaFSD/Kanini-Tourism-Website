@@ -62,12 +62,6 @@ namespace TourAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TourId"), 1L, 1);
 
-                    b.Property<int>("MaxCapacity")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MinCapacity")
-                        .HasColumnType("int");
-
                     b.Property<int>("NoOfDays")
                         .HasColumnType("int");
 
@@ -101,6 +95,9 @@ namespace TourAPI.Migrations
 
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("MaxCapacity")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
