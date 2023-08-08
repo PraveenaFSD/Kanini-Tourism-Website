@@ -16,26 +16,26 @@ function TourRegistration() {
     tourPrice: 21,
     noOfDays: 2,
     noOfNights: 2,
-    maxCapacity: 20,
-    minCapacity: 10,
     tourImage: "rfe",
     tourDates: [
       {
        
         startDate: "erf",
-        endDate: "ef"
+        endDate: "ef",
+        maxCapacity: 20,
+
       }
     ],
     tourInclusions: [
       {
     
-        inclusionId: 1
+        inclusionId: 4
       }
     ],
     tourExclusions: [
       {
       
-        exclusionId: 1
+        exclusionId: 4
       }
     ],
     tourItinerary: [
@@ -197,6 +197,28 @@ function TourRegistration() {
   };
   
   var login = () => {
+    const AZURITE_BLOB_SERVICE_URL = 'http://localhost:10000';
+        const ACCOUNT_NAME = 'devstoreaccount1';
+        const ACCOUNT_KEY = 'Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==';
+    
+
+        const blobServiceClient = new BlobServiceClient(
+          "http://127.0.0.1:10000/devstoreaccount1/tour?sv=2018-03-28&st=2023-08-07T14%3A17%3A59Z&se=2023-08-08T14%3A17%3A59Z&sr=c&sp=racwdl&sig=c%2BTV%2F7%2BdU7R7CwmnuqsRxAR16HBwheT0vZY2%2BmDOSzM%3D",
+"sv=2018-03-28&st=2023-08-07T14%3A17%3A59Z&se=2023-08-08T14%3A17%3A59Z&sr=c&sp=racwdl&sig=c%2BTV%2F7%2BdU7R7CwmnuqsRxAR16HBwheT0vZY2%2BmDOSzM%3D"      );
+      const containerClient = blobServiceClient.getContainerClient('tour');
+      console.log(images, "imgae");
+      for (let i = 0; i < images.length; i++) {
+//         const selectedImage = images[i];
+// console.log(selectedImage); // Check the selected image object
+          const blobClient = containerClient.getBlobClient(images[i].name);
+          const blockBlobClient = blobClient.getBlockBlobClient();
+          const result = blockBlobClient.uploadBrowserData(images[i], {
+              blockSize: 4 * 1024 * 1024,
+              concurrency: 20,
+              onProgress: ev => console.log(ev)
+          });
+          console.log(result, "result");
+      }34
     console.log(tourData);
     fetch("http://localhost:5128/api/Tour/AddTourPackage", {
       method: "POST",
@@ -367,7 +389,7 @@ function TourRegistration() {
                         <h5> Tour Dates</h5> <br />
                         {dates.map((date, index) => (
                           <div className="row" key={index}>
-                            <div className="col-md-5">
+                            <div className="col-md-4">
                               <label
                                 className="form-label"
                                 htmlFor={`startDate-${index}`}
@@ -388,7 +410,7 @@ function TourRegistration() {
                                 }
                               />
                             </div>
-                            <div className="col-md-5">
+                            <div className="col-md-4">
                               <label
                                 className="form-label"
                                 htmlFor={`endDate-${index}`}
@@ -409,7 +431,29 @@ function TourRegistration() {
                                 }
                               />
                             </div>
-                            <div className="col-md-2">
+                            
+                            <div className="col-md-3">
+                              <label
+                                className="form-label"
+                                htmlFor={`endDate-${index}`}
+                              >
+                                Max Capacity
+                              </label>
+                              <input
+                                type="number"
+                                className="form-control"
+                                id={`maxCapacity-${index}`}
+                                value={date.maxCapacity}
+                                onChange={(e) =>
+                                  handleDateChange(
+                                    index,
+                                    "maxCapacity",
+                                    e.target.value
+                                  )
+                                }
+                              />
+                            </div>
+                            <div className="col-md-1">
                               <br />
 
                               {/* "Delete" button to remove the particular date */}
@@ -423,8 +467,9 @@ function TourRegistration() {
                             </div>
                           </div>
                         ))}
+                        <br/>
                         <h6>
-                          <button onClick={handleAddDate}>+</button>
+                          <button className="handleAddDate" onClick={handleAddDate}>+</button>
                         </h6>
                       </div>
                       <br />
@@ -466,44 +511,8 @@ function TourRegistration() {
                           />
                         </div>{" "}
                       </div>
-                      <div class="col-md-12 mb-4">
-                        <div class="form-outline">
-                          <label class="form-label" for="form3Example1">
-                            Max Capacity
-                          </label>
-
-                          <input
-                            type="number"
-                            id="form3Example1"
-                            class="form-control"
-                            onChange={(event) => {
-                              setTourData({
-                                ...tourData,
-                                maxCapacity: event.target.value,
-                              });
-                            }}     
-                          />
-                        </div>{" "}
-                      </div>
-                      <div class="col-md-12 mb-4">
-                        <div class="form-outline">
-                          <label class="form-label" for="form3Example1">
-                            Minimum Capacity
-                          </label>
-
-                          <input
-                            type="number"
-                            id="form3Example1"
-                            class="form-control"
-                            onChange={(event) => {
-                              setTourData({
-                                ...tourData,
-                                minCapacity: event.target.value,
-                              });
-                            }}     
-                          />
-                        </div>{" "}
-                      </div>
+             
+              
                       <div class="col-md-12 mb-4">
                         <div class="form-outline">
                           <label class="form-label" for="form3Example1">
@@ -759,7 +768,7 @@ function TourRegistration() {
                           </div>
                         ))}
                         <h6>
-                          <button onClick={() => handleAddEntry()}>+</button>
+                          <button className="handleAddDate" onClick={() => handleAddEntry()}>+</button>
                         </h6>
                       </div>
                       <button

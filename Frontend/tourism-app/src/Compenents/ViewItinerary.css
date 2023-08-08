@@ -60,11 +60,12 @@ font-weight: 600;
     transform: translate(-50%, -50%); /* Center the bullet vertically */
     font-size: 28px; /* Increase the size of the bullet */
   }
-  .inclusions-text{
-    font-size: 30px;
-  }
+  .inclusions-text {
+    font-size: 25px;
+    text-align: left;  }
   .exclusions-text{
-    font-size: 30px;
+    font-size: 25px;
+    text-align: left;
   }
   
   .exclusions-text .cancel-name{

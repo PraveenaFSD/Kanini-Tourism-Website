@@ -28,27 +28,23 @@ function Login() {
         var myDataa = await res.json();
         localStorage.setItem("token", myDataa.token);
         localStorage.setItem("role", myDataa.role);
-       localStorage.setItem("userId", myDataa.userId)
+        localStorage.setItem("userId", myDataa.userId);
         if (res.status == 200) {
-        
-            navigate("/chooseRegister");}
-           else {
-            alert("login was unsuccessfull");
+          if(myDataa.role=="admin"){
+            navigate("/adminnav");
+
           }
-          // else if(myDataa.role=="patient")
-          // {
-          //   alert("login was successfull")
-          //   navigate("/patient");
+          if(myDataa.role=="traveler"){
+            navigate("/travelernav");
+          }
+          if(myDataa.role=="agent"){
+            navigate("/travelernav");
 
-          // }
-          // else if(myDataa.role=="admin"){
-          //   navigate("/admin");
-          //   alert("login was successfull")
+          }
+        } else {
+          alert("login was unsuccessfull");
+        }
 
-          // }
-        // } else {
-        //   alert("login was unsuccessfull");
-        // }
       })
       .catch((err) => {
         console.log(err);

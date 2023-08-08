@@ -4,6 +4,7 @@ import Menu from "../Compenents/Menu";
 import "bootstrap/dist/css/bootstrap.css";
 import "./GetAllAgents.css";
 import DeleteAlert from "./DeleteAlert";
+import AdminNav from "./AdminNav";
 
 function GetAllAgents() {
   const navigate = useNavigate();
@@ -109,8 +110,8 @@ function GetAllAgents() {
 
   return (
     <div>
-      <Menu />
-      <h4>AGENT DETAILS</h4>
+      <AdminNav />
+      <h4 >AGENT DETAILS</h4>
       <br />
 
       <div className="alterTable ">

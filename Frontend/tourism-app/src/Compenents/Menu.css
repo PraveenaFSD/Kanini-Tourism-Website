@@ -35,3 +35,6 @@ color: rgb(0, 0, 0);
 .icon-call i{
     color: rgb(100, 187, 187);
 }
+.card-img-main{
+    height:500px
+}

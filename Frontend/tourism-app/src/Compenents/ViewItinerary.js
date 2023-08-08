@@ -131,8 +131,8 @@ const bookingpage=()=>{
         <i>Loading Inclusion Details....</i>
       </div>
     ) : (
-      exclusions.map((u) => (
-        <div className="exclusions-text" key={u}>
+      inclusions.map((u) => (
+        <div className="exclusions-text" key={u} style={{ textAlign: 'left' }}>
           <br />
         
           <i>

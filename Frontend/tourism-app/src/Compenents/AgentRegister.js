@@ -73,8 +73,7 @@ function AgentRegister() {
     <div class="main">
       <Menu />
       <div class="container">
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalRelatedContent"   >Launch
-  modal</button>
+     
 
 <div class="modal fade right" id="modalRelatedContent" tabindex="-1" role="dialog"
   aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="false" 
@@ -108,7 +107,7 @@ function AgentRegister() {
     </div>
   </div>
 </div>
-        <div class="main-login">
+        <div class="main-log-agentRegister">
           <div class="px-4 py-5 px-md-5 text-center text-lg-start">
             <div class="container">
               <div class="row gx-lg-5 align-items-center">
@@ -310,7 +309,7 @@ function AgentRegister() {
                           />
                         </div>
                         <p>
-                          registered user? <Link>sign in</Link>
+                          registered user? <Link to="/login">sign in</Link>
                         </p>
 
                         <button

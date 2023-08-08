@@ -23,8 +23,13 @@ import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import UploadImage from "./Compenents/UploadImage";
 import GetAllAgents from "./Compenents/GetAllAgents";
 import DeleteAlert from "./Compenents/DeleteAlert";
-import BookingAlert from "./Compenents/BookingAlert";
+import BookedAlert from "./Compenents/BookedAlert";
 import Booking from "./Compenents/Booking";
+import MainMenu from "./Compenents/MainMenu";
+import AdminNav from "./Compenents/AdminNav";
+
+import AgentNav from "./Compenents/AgentNav";
+import TravelerNav from "./Compenents/TravelerNav";
 
 
 function App() {
@@ -32,7 +37,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<GetAllAgents />} />
+          <Route path="/" element={<MainMenu />} />
           <Route path="/login" element={<Login />} />
           <Route path="/agentregister" element={<AgentRegister />} />
           <Route path="/travelerregister" element={<TravelerRegister />} />
@@ -42,10 +47,17 @@ function App() {
           <Route path="/uploadimage" element={<UploadImage />} />
           <Route path="/getallagents" element={<GetAllAgents />} />
           <Route path="/deletealert" element={<DeleteAlert />} />
-          <Route path="/bookingalert" element={<BookingAlert />} />
+          <Route path="/bookedalert" element={<BookedAlert />} />
           <Route path="/viewTour" element={<ViewTour />} />
           <Route path="/viewItinerary" element={<ViewItinerary />} />
           <Route path="/booking" element={<Booking />} />
+          <Route path="/menu" element={<Menu />}/>
+          <Route path="/adminnav" element={<AdminNav />}/>
+          <Route path="/agentnav" element={<AgentNav />}/>
+          <Route path="/travelernav" element={<TravelerNav />}/>
+
+
+
 
 
           

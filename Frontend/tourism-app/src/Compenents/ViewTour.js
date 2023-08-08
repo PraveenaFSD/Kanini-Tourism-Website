@@ -7,7 +7,7 @@ import { AiFillGithub } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import log from '../Images/bech.jpg'
-
+import MainMenu from "../Compenents/MainMenu"
 function ViewTour() {
   const navigate = useNavigate();
 

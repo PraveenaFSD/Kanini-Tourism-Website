@@ -3,12 +3,11 @@ height:200px ;
 margin-left: 15%;
 width: 900px;} */
 
-.main-log{
+.main-log-agentRegister{
     
     width: 100%; /* Take up the full width of its parent container */
     max-width: 1200px; /* Set a maximum width to avoid getting too wide on large screens */
     margin: 0 auto; /* Center the div horizontally within its parent container */
-    background-color: aquamarine;
     padding: 20px;
   }
   .text-lg-start{
