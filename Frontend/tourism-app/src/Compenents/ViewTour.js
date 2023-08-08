@@ -44,7 +44,7 @@ function ViewTour() {
               <div class="col-md-4">
                 <div class="card mb-4">
                   <div class="view overlay">
-                    <img class="card-img-top" src={log} alt="Card image cap" />
+                    <img class="card-img-top" src={`http://127.0.0.1:10000/devstoreaccount1/tourisim/tour/${u.tourImage}`} alt="Card image cap" />
                     <a href="#!">
                       <div class="mask rgba-white-slight"></div>
                     </a>

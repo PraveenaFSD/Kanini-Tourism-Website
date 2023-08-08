@@ -7,9 +7,10 @@ import { AiFillGithub } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import { BlobServiceClient } from "@azure/storage-blob";
 
 function TourRegistration() {
- 
+  var [images, setImages] = useState([]);
   const [tourData, setTourData] = useState({
     tourDescription: "11",
     tourState: "df",
@@ -19,24 +20,20 @@ function TourRegistration() {
     tourImage: "rfe",
     tourDates: [
       {
-       
         startDate: "erf",
         endDate: "ef",
         maxCapacity: 20,
-
-      }
+      },
     ],
     tourInclusions: [
       {
-    
-        inclusionId: 4
-      }
+        inclusionId: 4,
+      },
     ],
     tourExclusions: [
       {
-      
-        exclusionId: 4
-      }
+        exclusionId: 4,
+      },
     ],
     tourItinerary: [
       {
@@ -46,25 +43,22 @@ function TourRegistration() {
         arivalTime: "",
         depatureTime: "",
         destinationImage: "3d",
-        destinationActivity: "dss"
-      }
-    ]
+        destinationActivity: "dss",
+      },
+    ],
   });
-  const [ex, setEx] = useState([{exclusionId:0}]);
+  const [ex, setEx] = useState([{ exclusionId: 0 }]);
 
   const handleExChange = (index, field, value) => {
-  
     setTourData((prevTourData) => ({
       ...prevTourData,
       tourExclusions: value,
     }));
-  
-   
   };
   useEffect(() => {
     console.log("Updated tourExclusions:", tourData.tourExclusions);
   }, [tourData.tourExclusions]);
-  
+
   const [inclusions, setInclusions] = useState([]);
   const [exclusions, setExclusions] = useState([]);
   useEffect(() => {}, [inclusions, exclusions]);
@@ -72,7 +66,6 @@ function TourRegistration() {
     getTypes();
     getCategories();
     // localStorage.clear();
-    
   }, []);
   var getTypes = () => {
     fetch("http://localhost:5128/api/Tour/GetAllInclusion  ", {
@@ -127,19 +120,17 @@ function TourRegistration() {
   };
 
   const handleDateChange = (index, field, value) => {
-    console.log(field)
+    console.log(field);
     const updatedDates = [...dates];
     updatedDates[index][field] = value;
     setDates(updatedDates);
     setTourData((prevTourData) => ({
       ...prevTourData,
       tourDates: updatedDates,
-      
     }));
-    console.log(dates)
-    console.log("newew")
-    console.log(...tourData.tourDates )
-
+    console.log(dates);
+    console.log("newew");
+    console.log(...tourData.tourDates);
   };
   const handleDeleteDate = (index) => {
     const updatedDates = [...dates];
@@ -148,10 +139,9 @@ function TourRegistration() {
     setTourData((prevTourData) => ({
       ...prevTourData,
       tourDates: updatedDates,
-      
     }));
   };
-    
+
   const handleDeleteEntry = (index) => {
     const updatedAdds = [...itineraryData];
     updatedAdds.splice(index, 1);
@@ -159,9 +149,8 @@ function TourRegistration() {
     setTourData((prevTourData) => ({
       ...prevTourData,
       tourItinerary: updatedAdds,
-      
     }));
-    
+
     // setItineraryData((prevItineraryData) => {
     //   const updatedItineraryData = [...prevItineraryData];
     //   updatedItineraryData.splice(index, 1);
@@ -193,52 +182,45 @@ function TourRegistration() {
       },
     ]);
     console.log(itineraryData);
-
   };
-  
-  var login = () => {
-    const AZURITE_BLOB_SERVICE_URL = 'http://localhost:10000';
-        const ACCOUNT_NAME = 'devstoreaccount1';
-        const ACCOUNT_KEY = 'Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==';
-    
 
-        const blobServiceClient = new BlobServiceClient(
-          "http://127.0.0.1:10000/devstoreaccount1/tour?sv=2018-03-28&st=2023-08-07T14%3A17%3A59Z&se=2023-08-08T14%3A17%3A59Z&sr=c&sp=racwdl&sig=c%2BTV%2F7%2BdU7R7CwmnuqsRxAR16HBwheT0vZY2%2BmDOSzM%3D",
-"sv=2018-03-28&st=2023-08-07T14%3A17%3A59Z&se=2023-08-08T14%3A17%3A59Z&sr=c&sp=racwdl&sig=c%2BTV%2F7%2BdU7R7CwmnuqsRxAR16HBwheT0vZY2%2BmDOSzM%3D"      );
-      const containerClient = blobServiceClient.getContainerClient('tour');
-      console.log(images, "imgae");
-      for (let i = 0; i < images.length; i++) {
-//         const selectedImage = images[i];
-// console.log(selectedImage); // Check the selected image object
-          const blobClient = containerClient.getBlobClient(images[i].name);
-          const blockBlobClient = blobClient.getBlockBlobClient();
-          const result = blockBlobClient.uploadBrowserData(images[i], {
-              blockSize: 4 * 1024 * 1024,
-              concurrency: 20,
-              onProgress: ev => console.log(ev)
-          });
-          console.log(result, "result");
-      }34
+  var login = () => {
+    const AZURITE_BLOB_SERVICE_URL = "http://localhost:10000";
+    const ACCOUNT_NAME = "devstoreaccount1";
+    const ACCOUNT_KEY =
+      "Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==";
+
+    const blobServiceClient = new BlobServiceClient(
+      "http://127.0.0.1:10000/devstoreaccount1/tourisim?sv=2018-03-28&st=2023-08-08T07%3A44%3A09Z&se=2023-08-09T07%3A44%3A09Z&sr=c&sp=racwdl&sig=q0gdocL%2FP2HOgeLxAb6q5YMcYVHjSSmoMdcLgs3m6pM%3D",
+      "sv=2018-03-28&st=2023-08-08T07%3A44%3A09Z&se=2023-08-09T07%3A44%3A09Z&sr=c&sp=racwdl&sig=q0gdocL%2FP2HOgeLxAb6q5YMcYVHjSSmoMdcLgs3m6pM%3D"
+    );
+    const containerClient = blobServiceClient.getContainerClient("tour");
+    console.log(images, "imgae");
+    for (let i = 0; i < images.length; i++) {
+      const blobClient = containerClient.getBlobClient(images[i].name);
+      const blockBlobClient = blobClient.getBlockBlobClient();
+      const result = blockBlobClient.uploadBrowserData(images[i], {
+        blockSize: 4 * 1024 * 1024,
+        concurrency: 20,
+        onProgress: (ev) => console.log(ev),
+      });
+      console.log(result, "result");
+    }
     console.log(tourData);
     fetch("http://localhost:5128/api/Tour/AddTourPackage", {
       method: "POST",
       headers: {
-        "accept": "text/plain",
-        "Content-Type": "application/json"
+        accept: "text/plain",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({ ...tourData, tourData: {} }),
     })
-    .then(async (res) => {
-      
-      if (res.status == 201) {
-       
+      .then(async (res) => {
+        if (res.status == 201) {
           alert("register was successfull");
           // $('#modalRelatedContent').modal('show');
-
-        }
-        else{
+        } else {
           alert("register was unsuccessfull");
-
         }
         // else if(myDataa.role=="patient")
         // {
@@ -251,12 +233,11 @@ function TourRegistration() {
         //   alert("login was successfull")
 
         // }
-      
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   const handleAddChange = (index, field, value) => {
     const updatedAdds = [...itineraryData];
     updatedAdds[index][field] = value;
@@ -265,45 +246,42 @@ function TourRegistration() {
     setTourData((prevTourData) => ({
       ...prevTourData,
       tourItinerary: updatedAdds,
-      
     }));
-    console.log("newew")
-    console.log(...tourData.tourItinerary )  };
+    console.log("newew");
+    console.log(...tourData.tourItinerary);
+  };
 
-    var applyInclusions=(event)=>
-    {
-        var branchObj=JSON.parse(event.target.value);
-        console.log("Ids");
-        console.log(branchObj.inclusionId);
+  var applyInclusions = (event) => {
+    var branchObj = JSON.parse(event.target.value);
+    console.log("Ids");
+    console.log(branchObj.inclusionId);
 
-        
-              const ss =new Object();
-             
-              ss.inclusionId=branchObj.inclusionId;
-              setTourData((prevTourData) => ({
-                ...prevTourData,
-                tourInclusions: ss,
-                
-              }));
-        // props.sendToAvailability(clients);
-        }
-        // var applyExclusions=(event)=>
-        // {
-        //     var branchObj=JSON.parse(event.target.value);
-        //     console.log("Ids");
-        //     console.log(branchObj.exclusionId);
-        //           const Exclusions =new Object();
-                 
-        //           Exclusions.exclusionId=branchObj.exclusionId;
-        //           setTourData((prevTourData) => [({
-        //             ...prevTourData,
-        //             tourExclusions: Exclusions
-                    
-        //           })]);
+    const ss = new Object();
 
-        //     // props.sendToAvailability(clients);
-        //     }
-    
+    ss.inclusionId = branchObj.inclusionId;
+    setTourData((prevTourData) => ({
+      ...prevTourData,
+      tourInclusions: ss,
+    }));
+    // props.sendToAvailability(clients);
+  };
+  // var applyExclusions=(event)=>
+  // {
+  //     var branchObj=JSON.parse(event.target.value);
+  //     console.log("Ids");
+  //     console.log(branchObj.exclusionId);
+  //           const Exclusions =new Object();
+
+  //           Exclusions.exclusionId=branchObj.exclusionId;
+  //           setTourData((prevTourData) => [({
+  //             ...prevTourData,
+  //             tourExclusions: Exclusions
+
+  //           })]);
+
+  //     // props.sendToAvailability(clients);
+  //     }
+
   return (
     <div class="main">
       <Menu />
@@ -337,7 +315,6 @@ function TourRegistration() {
 
                           {/* <input type="text" rows="5" id="form3Example3" class="form-control custom-width" /> */}
                           <textarea
-                          
                             class="form-control"
                             rows="3"
                             id="comment"
@@ -346,7 +323,8 @@ function TourRegistration() {
                                 ...tourData,
                                 tourDescription: event.target.value,
                               });
-                            }}                          ></textarea>
+                            }}
+                          ></textarea>
                         </div>
                         <div class="col-md-12 mb-4">
                           <div class="form-outline">
@@ -431,7 +409,7 @@ function TourRegistration() {
                                 }
                               />
                             </div>
-                            
+
                             <div className="col-md-3">
                               <label
                                 className="form-label"
@@ -467,9 +445,14 @@ function TourRegistration() {
                             </div>
                           </div>
                         ))}
-                        <br/>
+                        <br />
                         <h6>
-                          <button className="handleAddDate" onClick={handleAddDate}>+</button>
+                          <button
+                            className="handleAddDate"
+                            onClick={handleAddDate}
+                          >
+                            +
+                          </button>
                         </h6>
                       </div>
                       <br />
@@ -511,8 +494,7 @@ function TourRegistration() {
                           />
                         </div>{" "}
                       </div>
-             
-              
+
                       <div class="col-md-12 mb-4">
                         <div class="form-outline">
                           <label class="form-label" for="form3Example1">
@@ -520,19 +502,24 @@ function TourRegistration() {
                           </label>
 
                           <input
-                            type="text"
                             id="form3Example1"
                             class="form-control"
+                            type="file"
+                            variant="outlined"
+                            multiple
                             onChange={(event) => {
-                              setTourData({
-                                ...tourData,
-                                tourImage: event.target.value,
-                              });
-                            }}     
+                              const selectedImages = event.target.files;
+                              setImages(selectedImages);
+                              setTourData((prevDetails) => ({
+                                ...prevDetails,
+                                tourImage: selectedImages[0].name,
+                              }));
+                            }}
+                            required
                           />
-                        </div>{" "}
+                        </div>
                       </div>
-                 
+
                       <div class="form-outline col-md-12">
                         <label class="form-label" for="inputState">
                           <h4>Inclusions</h4>
@@ -546,7 +533,6 @@ function TourRegistration() {
                                 value={JSON.stringify(item)} // Replace "value" with the appropriate property from your data
                                 id={`checkbox-${index}`}
                                 onChange={(event) => applyInclusions(event)}
-
                               />
                               <div className="col-md-6">
                                 <label
@@ -589,7 +575,6 @@ function TourRegistration() {
                                 // value={JSON.stringify(item)} // Replace "value" with the appropriate property from your data
                                 // id={`checkbox-${index}`}
                                 value={item.exclusionId}
-
                                 // onChange={(event) => handleExChange(event)}
                                 id={`exclusionId-${index}`}
                                 onChange={(e) =>
@@ -599,7 +584,6 @@ function TourRegistration() {
                                     e.target.value
                                   )
                                 }
-
                               />
 
                               <label
@@ -746,7 +730,7 @@ function TourRegistration() {
                                     id={`image-${index}`}
                                     value={data.image}
                                     onChange={(e) =>
-                                        handleAddChange(
+                                      handleAddChange(
                                         index,
                                         "image",
                                         e.target.value
@@ -768,7 +752,12 @@ function TourRegistration() {
                           </div>
                         ))}
                         <h6>
-                          <button className="handleAddDate" onClick={() => handleAddEntry()}>+</button>
+                          <button
+                            className="handleAddDate"
+                            onClick={() => handleAddEntry()}
+                          >
+                            +
+                          </button>
                         </h6>
                       </div>
                       <button
