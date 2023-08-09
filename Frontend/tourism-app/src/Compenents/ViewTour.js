@@ -1,13 +1,6 @@
-import Menu from "./Menu";
-import { AiFillTwitterCircle } from "react-icons/ai";
-import { BsFacebook } from "react-icons/bs";
-import { AiFillGoogleCircle } from "react-icons/ai";
 import "./ViewTour.css";
-import { AiFillGithub } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import log from '../Images/bech.jpg'
-import MainMenu from "../Compenents/MainMenu"
 function ViewTour() {
   const navigate = useNavigate();
 
@@ -32,13 +25,15 @@ function ViewTour() {
       .catch((err) => {
         console.log(err);
       });
-  }, []); // Pass an empty array as the second argument to useEffect to ensure it runs only once
+  }, []);
 
   return (
     <div className="main-tour">
       <div class="main-viewTour">
         <div class="container-expand-lg">
 
+
+   	 
           <div class="card-deck row">
             {tours.map((u) => (
               <div class="col-md-4">

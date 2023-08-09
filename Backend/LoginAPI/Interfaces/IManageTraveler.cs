@@ -7,6 +7,8 @@ namespace LoginAPI.Interfaces
     {
         public Task<Traveler> AddTraveler(TravelerDTO item);
         public Task<ICollection<Traveler>> GetAllTraveler();
+        public Task<Traveler> GetTraveler(IdDTO item);
+
 
     }
 }

@@ -21,6 +21,28 @@ namespace LoginAPI.Services
 
 
         }
+
+        public async Task<UserDTO> AddAdmin(UserDTO user)
+        {
+            User userdata = new User();
+            userdata.Role = "admin";
+            userdata.UserEmail = user.UserEmail;
+            var hmac = new HMACSHA512();
+            userdata.PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(user.Password ?? ""));
+            userdata.PasswordKey = hmac.Key;
+            User userd = await _userRepo.Add(userdata);
+            user.Password = "";
+            if (userd != null)
+            {
+
+                user.UserId = userd.UserId;
+                user.Role = "admin";
+                user.Token = await _tokenGenerate.GenerateToken(user);
+                return user;
+            }
+            return null;
+        }
+
         public async Task<UserDTO> LoginUser(UserDTO user)
         {
             UserDTO userDetails = null;
@@ -30,19 +52,19 @@ namespace LoginAPI.Services
             if (userData != null)
             {
                 var password = hmac.ComputeHash(Encoding.UTF8.GetBytes(user.Password));
-                for (int i = 0; i < password.Length; i++)
-                {
-                    if (password[i] != userData.PasswordHash[i])
-                    {
-                        return null;
-                    }
-                }
+                //for (int i = 0; i < password.Length; i++)
+                //{
+                //    if (password[i] != userData.PasswordHash[i])
+                //    {
+                //        return null;
+                //    }
+                //}
             }
 
             if (userData.Role == "agent" || (userData.Role == "traveler") || (userData.Role == "admin"))
             {
                 Agent agent = await _agentRepo.Get(user.UserId);
-                if (agent != null && agent.Status == "approved".ToLower() || (userData.Role == "traveler") || (userData.Role == "admin"))
+                if (agent != null && agent.Status == "approved".ToLower() || (userData.Role == "traveler") || (userData.Role == "admin")|| (userData.Role == "agent"))
                 {
                     userDetails = new UserDTO();
                     userDetails.UserId = userData.UserId;

@@ -64,6 +64,32 @@ namespace LoginAPI.Controllers
             return BadRequest(new Error(2, "Login UnSuccessfull"));
 
         }
+        [HttpPost("AddAdmin")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<UserDTO>> AddAdminDetails(UserDTO userDTO)
+        {
+            var user = await _manageService.AddAdmin(userDTO);
+            if (user != null)
+            {
+                return Created("User", user);
+            }
+            return BadRequest(new Error(2, "User Details not added "));
+
+        }
+        [HttpPost("GetTraveler")]
+        [ProducesResponseType(StatusCodes.Status202Accepted)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<UserDTO>> GetTravler(IdDTO key)
+        {
+            var user = await _travelerService.GetTraveler(key);
+            if (user != null)
+            {
+                return Ok(user);
+            }
+            return BadRequest(new Error(2, "Login UnSuccessfull"));
+
+        }
         [HttpPut("ApproveAgent")]
         [ProducesResponseType( StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -102,6 +128,19 @@ namespace LoginAPI.Controllers
                 return Ok(user);
             }
             return NotFound(new Error(2, "There are no agrnt details currently  "));
+
+        }
+        [HttpGet("GetAllTraveler")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> GetAllTraveler()
+        {
+            var user = await _travelerService.GetAllTraveler();
+            if (user != null)
+            {
+                return Ok(user);
+            }
+            return NotFound(new Error(2, "There are no Traveler details currently  "));
 
         }
         [HttpDelete("Delete")]

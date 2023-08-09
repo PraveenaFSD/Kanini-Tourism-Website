@@ -1,20 +1,12 @@
-import Menu from "./Menu";
-import { AiFillTwitterCircle } from "react-icons/ai";
-import { BsFacebook } from "react-icons/bs";
-import { FcDisapprove } from "react-icons/fc";
-import { FcApproval } from "react-icons/fc";
-import { Link, useNavigate } from "react-router-dom";
+
 import React, { useEffect, useState } from "react";
 import log from "../Images/bech.jpg";
 import card1 from "../Images/card1.jpg";
 import card2 from "../Images/card2.jpg";
 import card3 from "../Images/card3.jpg";
 import BookedAlert from "../Compenents/BookedAlert";
-
-import mock from "../Images/Bookin3.jpg";
+import mock from "../Images/sr.jpg";
 import { AiOutlineCloseCircle } from "react-icons/ai";
-
-import ClipLoader from "react-spinners/ClipLoader";
 import "./Booking.css";
 function Booking() {
   const [selectedRow, setSelectedRow] = useState(null);
@@ -25,10 +17,12 @@ function Booking() {
       ...booking,
       tourDateId: id,
     });
-
+    settourDTO({
+        ...tourDTO,
+        id: id,
+      });
     setMax(maxCount);
     console.log(max);
-    // console.log(booking.tourDateId)
     if (selectedRow === index) {
       setSelectedRow(null);
     } else {
@@ -69,11 +63,11 @@ function Booking() {
   useEffect(() => {
     booking.tourId = localStorage.getItem("tourId");
     booking.billings.tourId = localStorage.getItem("tourId");
+     tourDTO.tourId=localStorage.getItem("tourId");
+     tourDTO.count=passenger.length;
+     booking.userId=localStorage.getItem("userId");
 
-    setBooking({
-      ...booking,
-      userId: localStorage.getItem("userId"),
-    });
+  
 
     fetch("http://localhost:5128/api/Tour/GetTourPackageAsData", {
       method: "POST",
@@ -127,10 +121,6 @@ function Booking() {
     ]);
     console.log(passenger);
   };
-//   const alertdel = () => {
-//     alert("hello");
-//     setShowDeleteAlert(true);
-//   };
 
   const [passenger, setPassenger] = useState([
     {
@@ -140,54 +130,66 @@ function Booking() {
       phoneNumber: "",
     },
   ]);
-  console.log("max" + tour.maxCapacity);
+  const [tourDTO, settourDTO] = useState([
+    {
+      id:0,
+      tourId:0,
+      count:0
 
-  //   const [d, setD] = useState (localStorage.getItem("tourId"))
-  //   const [u, setU] = useState (localStorage.getItem("userId"))
+    },
+  ]);
+
   var pay = () => {
-    if (passenger.length - 1 > max - 1) {
-      alert("You Exceeded the maximum capacity so you cannot book");
-    } else {
-
-      setBooking((prevState) => ({
-        ...prevState,
-        billings: {
-          ...prevState.billings,
-          totalAmount: tour.tourPrice * passenger.length,
-        },
-      }));
-      console.log(booking);
-      fetch("http://localhost:5011/api/Booking/AddBooking", {
-        method: "POST",
-        headers: {
-          accept: "text/plain",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ ...booking, booking: {} }),
-      })
-        .then(async (res) => {
-          var myDataa = await res.json();
-
-          if (res.status == 201) {
-            // setIsModalOpen(true); // Open the modal
+    if(localStorage.getItem("role")=="traveler"){
+        if (passenger.length - 1 > max - 1) {
+            alert("You Exceeded the maximum capacity so you cannot book");
           } else {
-            alert("register was unsuccessfull");
+            setBooking((prevState) => ({
+              ...prevState,
+              billings: {
+                ...prevState.billings,
+                totalAmount: tour.tourPrice * passenger.length,
+              },
+            }));
+          
+      
+               fetch("http://localhost:5128/api/Tour/UpdateMaxCount", {
+                  method: "PUT",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify(tourDTO),
+                }).then((res) => {
+                  console.log(res.status);
+                 
+                });
+      
+            fetch("http://localhost:5011/api/Booking/AddBooking", {
+              method: "POST",
+              headers: {
+                accept: "text/plain",
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ ...booking, booking: {} }),
+            })
+              .then(async (res) => {
+                var myDataa = await res.json();
+      
+                if (res.status == 201) {
+                  setShowDeleteAlert(true);
+              } else {
+                  alert("register booking was unsuccessfull");
+                }
+              })
+              .catch((err) => {
+                console.log(err);
+              });
           }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-        setShowDeleteAlert(true);
-
     }
-    // setBooking({
-    //     ...booking,
-    //     tourId:  d
-    //   });
-    //   setBooking({
-    //     ...booking,
-    //     userId:  u
-    //   });
+else{
+    alert("Your not authorized user to book")
+}
+  
   };
   return (
     <div className="main-">
@@ -199,7 +201,7 @@ function Booking() {
             <div class="card-booking">
               <div class="card_price">${tour.tourPrice}</div>
               <div class="card_image">
-                <img src={mock} alt="mixed vegetable salad in a mason jar. " />
+                <img src={mock} alt="Image " />
               </div>
               <div class="card_content">
                 <h2 class="card_title">{tour.tourDescription}</h2>
@@ -303,8 +305,6 @@ function Booking() {
                     />
                   </div>
 
-                  {/* Add other fields for location name, description, activities, arrivalTime, departureTime, and image here */}
-                  {/* Remember to bind these inputs to the respective properties in the itineraryData state */}
                 </div>
                 <br />
                 <div className="row text-start">
@@ -347,7 +347,7 @@ function Booking() {
               </div>
             ))}{" "}
             <h6>
-              <button onClick={() => handleAddEntry()}>+</button>
+              <button className="add-btm-it" onClick={() => handleAddEntry()}>+</button>
             </h6>
             <div className="col-md-12">Payment</div>
             <div className="col-md-12">Accepted Cards</div>

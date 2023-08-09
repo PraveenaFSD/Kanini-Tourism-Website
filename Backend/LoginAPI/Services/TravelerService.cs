@@ -47,5 +47,15 @@ namespace LoginAPI.Services
             }
             return null;
         }
+
+        public async Task<Traveler> GetTraveler(IdDTO item)
+        {
+            Traveler traveler = await _repo.Get(item.id);
+            if (traveler != null)
+            {
+                return traveler;
+            }
+            return null;
+        }
     }
 }

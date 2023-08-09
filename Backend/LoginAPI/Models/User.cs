@@ -9,6 +9,7 @@ namespace LoginAPI.Models
         public byte[]? PasswordHash { get; set; }
         public byte[]? PasswordKey { get; set; }
         public string? Role { get; set; }
+        [EmailAddress]
         public string? UserEmail { get; set; }
 
 

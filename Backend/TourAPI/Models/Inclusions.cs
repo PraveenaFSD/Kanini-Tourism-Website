@@ -6,6 +6,8 @@ namespace TourAPI.Models
     {
         [Key]
        public int InclusionId { get; set; }
+        [StringLength(200)]
+
         public string? InclusionDescription { get; set; }
     }
 }

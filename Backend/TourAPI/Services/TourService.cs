@@ -1,4 +1,5 @@
-﻿using TourAPI.Interfaces;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using TourAPI.Interfaces;
 using TourAPI.Models;
 using TourAPI.Models.NewFolder;
 
@@ -59,6 +60,31 @@ namespace TourAPI.Services
             return null;
         }
 
+        public async Task<bool> UpdateCount(TourDTO item)
+        {
+            Tour tour = await _tourRepo.Get(item.tourId);
+            ICollection<TourDates> tourDates = await updateCount(tour.TourDates,item.id,item.count);
+            tour.TourDates = tourDates;
+            Tour tourResult = await _tourRepo.Update(tour);
+            if (tourDates != null)
+            {
+                return true;
+            }
+            return false;
+
+        }
+        public async Task<ICollection<TourDates>> updateCount(ICollection<TourDates> tourDates,int id,int count)
+        {
+            foreach (var data in tourDates)
+            {
+                if (data.TourDateId == id)
+                {
+                    data.MaxCapacity = data.MaxCapacity - count;
+                }
+            }
+            return tourDates;
+
+        }
         public async Task<bool> UpdateTourpackage(Tour item)
         {
             Tour tour = await _tourRepo.Update(item);

@@ -116,6 +116,7 @@ namespace TourAPI.Services
                     tour.TourExclusions=item.TourExclusions;
                     tour.TourInclusions=item.TourInclusions;
                     tour.TourItinerary = item.TourItinerary;
+                    tour.TourDates=item.TourDates;
 
                     await _context.SaveChangesAsync();
                     transaction.Commit();

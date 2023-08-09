@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Menu from "../Compenents/Menu";
 import "bootstrap/dist/css/bootstrap.css";
 import "./GetAllAgents.css";
 import DeleteAlert from "./DeleteAlert";
@@ -12,9 +11,8 @@ function GetAllAgents() {
   const [selectedAgentId, setSelectedAgentId] = useState(0);
 
   const alertdel = (id) => {
-
     setSelectedAgentId(id);
-    console.log(selectedAgentId +"ched id")
+    console.log(selectedAgentId + "ched id");
     setShowDeleteAlert(true);
   };
 
@@ -23,7 +21,7 @@ function GetAllAgents() {
   };
 
   const [agents, setAgents] = useState([]);
-  
+
   useEffect(() => {
     fetch("http://localhost:5129/api/User/GetAllAgent", {
       method: "GET",
@@ -111,7 +109,7 @@ function GetAllAgents() {
   return (
     <div>
       <AdminNav />
-      <h4 >AGENT DETAILS</h4>
+      <h4>AGENT DETAILS</h4>
       <br />
 
       <div className="alterTable ">
@@ -166,7 +164,11 @@ function GetAllAgents() {
 
       {/* Conditionally render the DeleteAlert component */}
       {showDeleteAlert && selectedAgentId && (
-        <DeleteAlert prod={selectedAgentId} onClose={closeDeleteAlert} show={showDeleteAlert} />
+        <DeleteAlert
+          prod={selectedAgentId}
+          onClose={closeDeleteAlert}
+          show={showDeleteAlert}
+        />
       )}
     </div>
   );

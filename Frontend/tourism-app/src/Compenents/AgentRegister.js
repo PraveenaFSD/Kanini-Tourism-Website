@@ -7,6 +7,7 @@ import { AiFillGithub } from "react-icons/ai";
 
 import { Link, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
+import AgentNav from "./AgentNav";
 
 function AgentRegister() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -71,7 +72,7 @@ function AgentRegister() {
   };
   return (
     <div class="main">
-      <Menu />
+      <AgentNav />
       <div class="container">
      
 
@@ -186,25 +187,6 @@ function AgentRegister() {
                           />
                         </div>
 
-                        {/* <div class="row">
-                    <div class="col-md-6 mb-4">
-                        
-                      <div class="form-outline">
-                        
-                      <label class="form-label" for="form3Example1">First name</label>
-
-                        <input type="text" id="form3Example1" class="form-control" />
-                      </div>
-                    </div>
-                    <div class="col-md-6 mb-4">
-                      <div class="form-outline">
-                      <label class="form-label" for="form3Example2">Last name</label>
-
-                        <input type="text" id="form3Example2" class="form-control" />
-                      </div>
-                    </div>
-                  </div> */}
-
                         <div class="form-outline mb-4">
                           <label class="form-label" for="form3Example4">
                             Password
@@ -244,7 +226,6 @@ function AgentRegister() {
                             Agent address
                           </label>
 
-                          {/* <input type="text" rows="5" id="form3Example3" class="form-control custom-width" /> */}
                           <textarea
                             class="form-control"
                             rows="3"

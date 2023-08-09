@@ -4,17 +4,14 @@ import log from '../Images/question.jpg'
 import '../Compenents/DeleteAlert.css'
 function DeleteAlert(props) {
   const handleClose = () => {
-    // Call the onClose prop from the parent to close the modal
     props.onClose();
   };
 
   const handleDelete = () => {
-    // Call the onDelete prop from the parent to perform the delete action
    Del();
   };
   const Del = () => {
     console.log();
-    // const token = localStorage.getItem('token');
     const IdDTO = {
       id: props.prod,
     };
@@ -24,7 +21,6 @@ function DeleteAlert(props) {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-        // 'Authorization': "Bearer "+token
       },
       body: JSON.stringify(IdDTO),
     })

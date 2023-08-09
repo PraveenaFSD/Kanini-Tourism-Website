@@ -29,7 +29,7 @@ function AgentNav() {
              
              
               <li class="nav-item">
-                  <Link class="nav-link text-black" to="/tourregistartion">Add Packages</Link>
+                  <Link class="nav-link text-black" to="/tourregistration">Add Packages</Link>
               </li>
              
               <li class="nav-item">
@@ -38,6 +38,7 @@ function AgentNav() {
               <li class="nav-item">
                   <Link class="nav-link  text-black"   to="/chooseregister" data-toggle="modal" data-target="#myModal">Register</Link>
               </li>
+            
               <li class="nav-item">
                   <Link class="nav-link  text-black"   to="/chooseregister" data-toggle="modal" onClick={log}  data-target="#myModal">Log Out</Link>
               </li>

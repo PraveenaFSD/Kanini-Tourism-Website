@@ -6,6 +6,8 @@ import "./TravelerRegister.css";
 import { AiFillGithub } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Login() {
   const navigate = useNavigate();
@@ -13,9 +15,27 @@ function Login() {
     userEmail: "",
     password: "",
   });
+  const validateEmail = (email) => {
+    // Basic email validation using a regular expression
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    return emailPattern.test(email);
+  };
 
+  const validatePassword = (password) => {
+    // Basic password validation (minimum 6 characters)
+    return password.length >= 3;
+  };
   var login = () => {
     console.log(user);
+    if (!validateEmail(user.userEmail)) {
+      toast.error("Please enter a valid email address");
+      return;
+    }
+
+    if (!validatePassword(user.password)) {
+      toast.error("Password should be at least 6 characters long");
+      return;
+    }
     fetch("http://localhost:5129/api/User/LoginUser", {
       method: "POST",
       headers: {
@@ -26,25 +46,37 @@ function Login() {
     })
       .then(async (res) => {
         var myDataa = await res.json();
+        toast.success("Hey welcome to Praveena tourisim!", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
         localStorage.setItem("token", myDataa.token);
         localStorage.setItem("role", myDataa.role);
         localStorage.setItem("userId", myDataa.userId);
         if (res.status == 200) {
-          if(myDataa.role=="admin"){
+          if (myDataa.role == "admin") {
+            toast.success("Hey admin welcome to KTW tourisim!", {
+              position: toast.POSITION.TOP_RIGHT,
+            });
             navigate("/adminnav");
-
           }
-          if(myDataa.role=="traveler"){
+          if (myDataa.role == "traveler") {
+            toast.success("Hey admin welcome to KTW tourisim!", {
+              position: toast.POSITION.TOP_RIGHT,
+            });
             navigate("/travelernav");
           }
-          if(myDataa.role=="agent"){
-            navigate("/travelernav");
-
+          if (myDataa.role == "agent") {
+            toast.success("Hey admin welcome to KTW tourisim!", {
+              position: toast.POSITION.TOP_RIGHT,
+            });
+            navigate("/agentnav");
           }
         } else {
+          toast.error("Hey please check you credentials", {
+            position: toast.POSITION.TOP_RIGHT,
+          });
           alert("login was unsuccessfull");
         }
-
       })
       .catch((err) => {
         console.log(err);

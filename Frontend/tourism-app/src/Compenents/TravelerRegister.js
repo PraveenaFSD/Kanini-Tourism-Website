@@ -32,7 +32,6 @@ function TravelerRegister() {
         var myDataa = await res.json();
         localStorage.setItem("token", myDataa.token);
         localStorage.setItem("role", myDataa.role);
-        // localStorage.setItem("userId", myDataa.userId)
         if (res.status == 201) {
           if (myDataa.user.role == "traveler") {
             alert("register was successfull");
@@ -42,17 +41,7 @@ function TravelerRegister() {
             alert("register was unsuccessfull");
   
           }
-          // else if(myDataa.role=="patient")
-          // {
-          //   alert("login was successfull")
-          //   navigate("/patient");
-  
-          // }
-          // else if(myDataa.role=="admin"){
-          //   navigate("/admin");
-          //   alert("login was successfull")
-  
-          // }
+   
         } 
       })
       .catch((err) => {

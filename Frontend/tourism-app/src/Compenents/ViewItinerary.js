@@ -1,12 +1,11 @@
-import Menu from "./Menu";
-import { AiFillTwitterCircle } from "react-icons/ai";
-import { BsFacebook } from "react-icons/bs";
 import { FcDisapprove } from "react-icons/fc";
 import "./ViewItinerary.css";
 import { FcApproval } from "react-icons/fc";
-import { Link, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import log from "../Images/bech.jpg";
+import log from "../Images/sign1.jpeg";
+import mainlog from "../Images/sr.jpg";
+
 import ClipLoader from "react-spinners/ClipLoader";
 
 function ViewItinerary() {
@@ -26,8 +25,15 @@ function ViewItinerary() {
     setActiveButton(buttonId);
   };
 const bookingpage=()=>{
-  navigate('/booking')
-}
+  if(localStorage.getItem("role")=="traveler")
+  {
+    navigate('/booking')
+   
+  }
+  else{
+    navigate('/unauth')  }
+
+  }
   useEffect(() => {
     const token = localStorage.getItem("tourId");
     user.id = token;
@@ -57,7 +63,7 @@ const bookingpage=()=>{
 
   return (
     <div className="main-it">
-      <img class="card-img-top main-it-img" src={log} alt="Card image cap" />
+      <img class="card-img-top main-it-img" src={mainlog} alt="Card image cap" />
       <br />
       <h3 style={{ textAlign: "left" }}></h3>
       <div>
@@ -97,7 +103,7 @@ const bookingpage=()=>{
                 <div class="card mb-3" style={{ maxWidth: "130%" }}>
                   <div class="row no-gutters">
                     <div class="col-md-4">
-                      <img src={log} class="card-img" alt="..." />
+                      <img  src={log} class="card-img" alt="Image" />
                     </div>
                     <div class="col-md-8">
                       <div class="card-body-iyinerary">

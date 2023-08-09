@@ -137,3 +137,13 @@
     background: #8cdad9;
     cursor: pointer;
 }
+.add-btm-it{
+    border: none;
+    color:white;
+    background-color: black;
+}
+.main-booking-img{
+    width:20px;
+    height:20px;
+
+}

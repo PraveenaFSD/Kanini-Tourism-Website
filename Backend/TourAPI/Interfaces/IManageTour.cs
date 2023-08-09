@@ -12,6 +12,7 @@ namespace TourAPI.Interfaces
 
         public Task<ICollection<Tour>> GetAllTourPackages();
         public Task<ICollection<TourDetailsDTO>> GetAllTourPackagesData();
+        public Task<bool> UpdateCount(TourDTO item);
 
 
 

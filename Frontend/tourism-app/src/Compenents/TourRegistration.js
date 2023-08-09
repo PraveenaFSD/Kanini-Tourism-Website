@@ -1,13 +1,10 @@
-import Menu from "./Menu";
-import { AiFillTwitterCircle } from "react-icons/ai";
-import { BsFacebook } from "react-icons/bs";
-import { AiFillGoogleCircle } from "react-icons/ai";
+
 import "./TourRegistration.css";
-import { AiFillGithub } from "react-icons/ai";
-import { Link, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { BlobServiceClient } from "@azure/storage-blob";
+import AgentNav from "./AgentNav";
 
 function TourRegistration() {
   var [images, setImages] = useState([]);
@@ -28,12 +25,23 @@ function TourRegistration() {
     tourInclusions: [
       {
         inclusionId: 4,
-      },
+      },{
+        inclusionId: 1
+      },{
+        inclusionId: 2
+      },{
+        inclusionId: 3
+      }
+
     ],
     tourExclusions: [
       {
         exclusionId: 4,
-      },
+      }, {
+        exclusionId: 3,
+      }, {
+        exclusionId: 1,
+      }
     ],
     tourItinerary: [
       {
@@ -47,7 +55,6 @@ function TourRegistration() {
       },
     ],
   });
-  const [ex, setEx] = useState([{ exclusionId: 0 }]);
 
   const handleExChange = (index, field, value) => {
     setTourData((prevTourData) => ({
@@ -65,7 +72,6 @@ function TourRegistration() {
   useEffect(() => {
     getTypes();
     getCategories();
-    // localStorage.clear();
   }, []);
   var getTypes = () => {
     fetch("http://localhost:5128/api/Tour/GetAllInclusion  ", {
@@ -86,7 +92,7 @@ function TourRegistration() {
         }
       })
       .catch((err) => {
-        // setError(err.message);
+        console.log(err.message);
       });
   };
 
@@ -151,11 +157,7 @@ function TourRegistration() {
       tourItinerary: updatedAdds,
     }));
 
-    // setItineraryData((prevItineraryData) => {
-    //   const updatedItineraryData = [...prevItineraryData];
-    //   updatedItineraryData.splice(index, 1);
-    //   return updatedItineraryData;
-    // });
+
   };
   const [itineraryData, setItineraryData] = useState([
     {
@@ -218,21 +220,10 @@ function TourRegistration() {
       .then(async (res) => {
         if (res.status == 201) {
           alert("register was successfull");
-          // $('#modalRelatedContent').modal('show');
         } else {
           alert("register was unsuccessfull");
         }
-        // else if(myDataa.role=="patient")
-        // {
-        //   alert("login was successfull")
-        //   navigate("/patient");
-
-        // }
-        // else if(myDataa.role=="admin"){
-        //   navigate("/admin");
-        //   alert("login was successfull")
-
-        // }
+  
       })
       .catch((err) => {
         console.log(err);
@@ -263,28 +254,12 @@ function TourRegistration() {
       ...prevTourData,
       tourInclusions: ss,
     }));
-    // props.sendToAvailability(clients);
   };
-  // var applyExclusions=(event)=>
-  // {
-  //     var branchObj=JSON.parse(event.target.value);
-  //     console.log("Ids");
-  //     console.log(branchObj.exclusionId);
-  //           const Exclusions =new Object();
-
-  //           Exclusions.exclusionId=branchObj.exclusionId;
-  //           setTourData((prevTourData) => [({
-  //             ...prevTourData,
-  //             tourExclusions: Exclusions
-
-  //           })]);
-
-  //     // props.sendToAvailability(clients);
-  //     }
+ 
 
   return (
     <div class="main">
-      <Menu />
+      <AgentNav />
       <div class="container">
         <div class="main-login">
           <div class="px-4 py-5 px-md-5 text-center bac">
@@ -478,7 +453,7 @@ function TourRegistration() {
                       <div class="col-md-12 mb-4">
                         <div class="form-outline">
                           <label class="form-label" for="form3Example1">
-                            No Of Knights
+                            No Of Nights
                           </label>
 
                           <input
@@ -530,7 +505,7 @@ function TourRegistration() {
                               <input
                                 className="form-check-input"
                                 type="checkbox"
-                                value={JSON.stringify(item)} // Replace "value" with the appropriate property from your data
+                                value={JSON.stringify(item)} 
                                 id={`checkbox-${index}`}
                                 onChange={(event) => applyInclusions(event)}
                               />
@@ -540,7 +515,6 @@ function TourRegistration() {
                                   htmlFor={`checkbox-${index}`}
                                 >
                                   {item.inclusionDescription}{" "}
-                                  {/* Replace "label" with the appropriate property from your data */}
                                 </label>
                               </div>
                             </div>
@@ -553,29 +527,14 @@ function TourRegistration() {
                         <label class="form-label" for="inputState">
                           <h4> Exclusions</h4>
                         </label>
-                        {/* <select id="inputState" className="form-control">
-                          <option value="DEFAULT" disabled>
-                            Exclusions
-                          </option>
-                          {exclusions.map((category, index) => (
-                            <option
-                              value={JSON.stringify(category)}
-                              key={index}
-                            >
-                              {category.exclusionDescription}
-                            </option>
-                          ))}
-                        </select> */}
+                   
                         <div>
                           {exclusions.map((item, index) => (
                             <div className="form-check text-start" key={index}>
                               <input
                                 className="form-check-input"
                                 type="checkbox"
-                                // value={JSON.stringify(item)} // Replace "value" with the appropriate property from your data
-                                // id={`checkbox-${index}`}
                                 value={item.exclusionId}
-                                // onChange={(event) => handleExChange(event)}
                                 id={`exclusionId-${index}`}
                                 onChange={(e) =>
                                   handleExChange(
@@ -591,7 +550,6 @@ function TourRegistration() {
                                 htmlFor={`exclusionId-${index}`}
                               >
                                 {item.exclusionDescription}{" "}
-                                {/* Replace "label" with the appropriate property from your data */}
                               </label>
                             </div>
                           ))}
@@ -636,8 +594,6 @@ function TourRegistration() {
                                 />
                               </div>
 
-                              {/* Add other fields for location name, description, activities, arrivalTime, departureTime, and image here */}
-                              {/* Remember to bind these inputs to the respective properties in the itineraryData state */}
                             </div>
                             <br />
                             <div className="row text-start">
@@ -724,18 +680,20 @@ function TourRegistration() {
                               <div class="row">
                                 <div className="col-md-10">
                                   <input
-                                    type="text"
                                     className="form-control"
-                                    placeholder="Image"
                                     id={`image-${index}`}
-                                    value={data.image}
-                                    onChange={(e) =>
+                                    onChange={(e) => {
+                                      const selectedImages = e.target.files;
+                                      setImages(selectedImages);
                                       handleAddChange(
                                         index,
                                         "image",
-                                        e.target.value
-                                      )
-                                    }
+                                        selectedImages[0].name
+                                      );
+                                    }}
+                                    type="file"
+                                    variant="outlined"
+                                    multiple
                                   />
                                 </div>
                               </div>

@@ -6,6 +6,8 @@ namespace LoginAPI.Interfaces
     {
         public Task<UserDTO> LoginUser(UserDTO user);
         public Task<UserDTO> UpdateUserPassword(UserDTO user);
+        public Task<UserDTO> AddAdmin(UserDTO user);
+
 
     }
 }

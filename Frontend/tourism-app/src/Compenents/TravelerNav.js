@@ -32,7 +32,9 @@ function TravelerNav() {
               <li class="nav-item">
                   <Link class="nav-link text-black" to="/viewTour">View Packages</Link>
               </li>
-            
+              <li class="nav-item">
+                  <Link class="nav-link text-black" to="/updatepassword">Update Password</Link>
+              </li>
               <li class="nav-item">
                   <Link class="nav-link  text-black"   to="/chooseregister" data-toggle="modal" onClick={log}  data-target="#myModal">Log Out</Link>
               </li>

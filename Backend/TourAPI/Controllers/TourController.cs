@@ -53,6 +53,19 @@ namespace TourAPI.Controllers
             return BadRequest(new Error(2, "Cannot UpdateTour Package  "));
 
         }
+        [HttpPut("UpdateMaxCount")]
+        [ProducesResponseType(StatusCodes.Status202Accepted)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> UpdateMaxCount(TourDTO tour)
+        {
+            var tourResult = await _tourService.UpdateCount(tour);
+            if (tourResult != null)
+            {
+                return Accepted("Update Max Count was Succecssfull");
+            }
+            return BadRequest(new Error(2, "Update Max Count was UnSuccecssfull "));
+
+        }
         [HttpGet("GetAllTourPackage")]
         [ProducesResponseType(typeof(ICollection<Tour>), StatusCodes.Status200OK)]
 
